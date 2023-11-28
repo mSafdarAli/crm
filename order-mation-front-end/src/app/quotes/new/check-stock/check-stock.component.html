@@ -1,0 +1,41 @@
+<div class="row">
+	<div class="col-md-8 align-items-center">
+		<h5 mat-dialog-title class="mt-0 mb-1">Current Stock</h5>
+	</div>
+	<div class="col-md-4 text-right align-items-top">
+		<button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+				class="mdi mdi-close"></i></button>
+	</div>
+</div>
+<hr class="my-1">
+
+<div class="row ">
+	<div class="col-12">
+		<div class="responsive-table-plugin">
+			<div class="table-category-plugin">
+				<div class="table-responsive" data-pattern="priority-columns">
+					<table id="tech-companies-1" class="table table-striped">
+						<thead>
+							<tr>
+								<th>Item Code</th>
+								<th>Description</th>
+								<th>Colour Code</th>
+								<th>Size Code</th>
+								<th>In Stock</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of stockData">
+								<td>{{item.itemCode}}</td>
+								<td>{{item.description}}</td>
+								<td>{{item.colourCode}}</td>
+								<td>{{item.sizeCode}}</td>
+								<td>{{item.inStock}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

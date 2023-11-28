@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Search For Products</h5>
+    </div>
+
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<div class="row">
+    <div class="col-8"></div>
+    <div class="col-md-4 my-3">
+
+        <form class="search-bar" [formGroup]="search">
+            <div class="position-relative">
+                <input type="text" class="form-control form-control-white" formControlName="query"
+                    (keydown.enter)="searchProduct(search.value)" placeholder="Search Product">
+                <span class="mdi mdi-magnify"></span>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div class="row ">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-3 col-lg-3 col-12">
+                 <form class="search-bar" [formGroup]="search">
+                        <div class="position-relative mt-1">
+                            <input type="text" class="form-control form-control-white" formControlName="supplier"
+                                (keydown.enter)="searchProduct(search.value)" placeholder="Search Supplier">
+                            <span class="mdi mdi-magnify" (click)="searchProduct(search.value)"></span>
+                        </div>
+                    </form>
+                
+            </div>
+            <div class="col-md-3 col-lg-3 col-12">
+                 <form class="search-bar" [formGroup]="search">
+                    <div class="position-relative mt-1">
+                        <input type="text" class="form-control form-control-white"
+                            formControlName="productCategory"
+                            (keydown.enter)="searchProduct(search.value)"
+                            placeholder="Search Category">
+                        <span class="mdi mdi-magnify" (click)="searchProduct(search.value)"></span>
+                    </div>
+                </form>
+            
+            </div>
+            <div class="col-md-3 col-lg-3 col-12">
+                 <form class="search-bar" [formGroup]="search">
+                    <div class="position-relative mt-1">
+                        <input type="text" class="form-control form-control-white"
+                            formControlName="code" (keydown.enter)="searchProduct(search.value)"
+                            placeholder="Search Code">
+                        <span class="mdi mdi-magnify" (click)="searchProduct(search.value)"></span>
+                    </div>
+                </form>
+            
+            </div>
+            <div class="col-md-3 col-lg-3 col-12">
+                <form class="search-bar" [formGroup]="search">
+                    <div class="position-relative mt-1">
+                        <input type="text" class="form-control form-control-white"
+                            formControlName="description"
+                            (keydown.enter)="searchProduct(search.value)"
+                            placeholder="Search Product">
+                        <span class="mdi mdi-magnify" (click)="searchProduct(search.value)"></span>
+                    </div>
+                </form>
+           
+            </div>
+        </div>
+        <div class="responsive-table-plugin">
+            <div class="table-category-plugin">
+                <div class="table-responsive" data-pattern="priority-columns">
+                    <table id="tech-companies-1" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Supplier </th>
+                                <th>Category </th>
+                                <th>Code </th>
+                                <th>Description </th>
+                                <th>Check Stock</th>
+                                <th>Embed Image</th>
+                                <th>Add</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let items of data">
+                                <th>{{items.supplier}}</th>
+                                <td>{{items.category}}</td>
+                                <td>{{items.productCode}}</td>
+                                <td class="w-25">{{items.product}}</td>
+                                <td>
+                                    <div class="btn btn-warning btn-xs ms-1" *ngIf="items.enableStockCheck"
+                                        (click)="checkStock({productId : items.productId, supplierId:items.supplierId})">
+                                        <i class="fe-home text-white "></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="items.imageId != null"
+                                        class="btn btn-danger btn-xs ms-0 ms-lg-2 ms-md-2 mt-lg-0 mt-md-0 "
+                                        (click)="imagePreview(items.productId)"><i class="fe-image text-white"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn btn-success btn-xs ms-1"
+                                        (click)="record({productId : items.productId, categoryId : items.categoryId , category : items.category , supplier:items.supplier , supplierId: items.supplierId , product:items.product , productCode:items.productCode, imgUrl:imgUrl})">
+                                        <i class="fe-plus text-white"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="float-end">
+            <button class="btn btn-xs btn-danger" [class.disabled]="start == 1"
+                (click)="getPrevious()">Previous</button>
+            <button class="btn btn-xs btn-primary ms-2" (click)="getNext()"
+                [class.disabled]="end >= count">Next</button>
+        </div>
+    </div>
+</div>

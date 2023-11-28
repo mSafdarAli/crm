@@ -1,0 +1,104 @@
+<div class="row">
+	<div class="col-6 col-md-8 col-lg-8 align-items-center">
+		<h5 mat-dialog-title class="mt-0 mb-1">Complaint</h5>
+	</div>
+	<div class="col-6 col-md-4 col-lg-4 text-right align-items-top">
+		<button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+				class="mdi mdi-close"></i></button>
+	</div>
+</div>
+<hr class="my-1">
+<div class="row">
+	<div class="col-12 col-md-12 col-lg-6">
+		<form [formGroup]="form" class="my-3">
+			<div class="row">
+				<div class="col-12 col-lg-4 col-md-4 mt-1">
+					<div class="input-group input-group-merge">
+						<input type="text" readonly class="form-control" formControlName="orderNo" placeholder="Order No">
+						<vmessage field="orderNo" [control]="form.controls['orderNo']">
+						</vmessage>
+					</div>
+				</div>
+				<div class="ol-12 col-lg-4 col-md-4 mt-1">
+					<div class="input-group input-group-merge">
+						<input type="text" readonly class="form-control" formControlName="quoteNo" placeholder="Quote No">
+						<vmessage field="quoteNo" [control]="form.controls['quoteNo']">
+						</vmessage>
+					</div>
+				</div>
+				<ng-container *ngIf="data.status == null; else resolve">
+					<div class="ol-12 col-lg-4 col-md-4">
+						<lb-auto-complete appearance="outline" placeholder="Reason" [multiple]="false" [clear]="true"
+							[fControl]="form.controls['reasonId']" [options]="selectReason">
+						</lb-auto-complete>
+					</div>
+				</ng-container>
+				<ng-template #resolve>
+					<div class="col-4"  [ngClass]="(data.status=='Resolved')?'mt-1':'mt-0'">
+						<div class="input-group input-group-merge">
+							<input type="text" id="id" class="form-control" formControlName="reasonId"  [(ngModel)]="data.status"  disabled>
+						</div>
+					</div>
+				</ng-template>
+			</div>
+			<div class="row" [ngClass]="(data.status=='Resolved')?'mt-3':'mt-0'">
+				<div class="form-group">
+					<textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="6" formControlName="notes"
+						placeholder="Notes / Comments"></textarea>
+					<vmessage field="notes" [control]="form.controls['notes']"></vmessage>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="ol-12 col-lg-4 col-md-4 my-3">
+		<ng-container *ngIf="attachment.length>0">
+			<div class="row align-items-baseline ms-2" *ngFor="let file of attachment">
+				<div class="col-10 bg-light rounded p-1">
+					<span class="ms-1">{{file.name}}</span>
+				</div>
+				<div class="col-2 text-right rounded">
+					<button (click)="removeFile(file.name)" class="btn btn-xs bg-warning rounded p-1 ms-1" type="button"><i
+							class="mdi mdi-close text-white font-12 mx-1"></i></button>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+	<div class="row mb-md-2 mb-lg-0 mb-2">
+		<div class="col-md-12">			
+			<div class="text-start text-sm-end">
+				<button mat-ripple type="button"  (click)="attachmentPopUp(quoteId)" class="btn btn-secondary d-sm-inline-block d-block m-1">View Attachments</button>
+				<button mat-ripple (click)="uploadFile.click()" type="button" class="btn btn-warning d-sm-inline-block d-block m-1">Add
+					Attachment</button>
+				<input #uploadFile type="file" hidden (change)="imageUpload($event)">
+				<button mat-ripple type="submit" (click)="submit()" class="btn btn-primary m-1">Save</button>
+				<button type="button" mat-ripple class="btn btn-danger m-1" (click)="close()">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="responsive-table-plugin">
+		<div class="table-category-plugin">
+			<div class="table-responsive" data-pattern="priority-columns">
+				<table id="tech-companies-1" class="table table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Reason</th>
+							<th>Comments</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of quoteData">
+							<td>{{item?.repName}}</td>
+							<td>{{item?.reason}}</td>
+							<td>{{item?.notes}}</td>
+							<td>{{moment(item?.complaintDate).format("DD-MM-YYYY")}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

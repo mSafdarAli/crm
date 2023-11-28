@@ -1,0 +1,113 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="left-side-menu bg-sidemenu leftbar overflow-auto ">
+
+    <div class="h-100" data-simplebar>
+
+        <!-- <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            <li>
+                <button class="button-menu-mobile waves-effect waves-light">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+        
+            <li>
+                Mobile menu toggle (Horizontal Layout)
+                <a class="navbar-toggle nav-link" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>            
+            </li>   
+        </ul>  -->
+        <!-- User box -->
+        <div class="user-box text-center" (click)="topmenu = !topmenu">
+            <img src="assets/logo/logo.png" alt="user-img" title="Mat Helme" class="rounded-circle avatar-md">
+
+            <div class="dropdown">
+                <a href="javascript: void(0);" class="text-light dropdown-toggle title h5 mt-2   mb-1 d-block"
+                    data-bs-toggle="dropdown">{{companyName}} <span class="bi bi-caret-down-fill"></span></a>
+
+                <div class="dropdown-menu user-pro-dropdown" [class.show]="topmenu">
+
+
+                    <!-- item-->
+                    <a (click)="newDialog();" class="dropdown-item notify-item">
+                        <i class="fe-lock me-1"></i>
+                        <span>Change Password</span>
+                    </a>
+
+                    <!-- item-->
+                    <a (click)="logout()" class="dropdown-item notify-item">
+                        <i class="fe-log-out me-1"></i>
+                        <span>Logout</span>
+                    </a>
+
+                </div>
+            </div>
+            <p class="text-light">{{userName}} </p>
+        </div>
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+
+            <ul id="side-menu" class="mt-3">
+                <li (click)="removeClass()">
+
+                    <a routerLink="/dashboard"><i class="bi-bar-chart"></i>Dashboard</a>
+                </li>
+                <li *ngFor="let item of leftMenuData; let i = index;">
+                    <!-- <a *ngIf="item.menuGroups.length == 0" routerLink="{{item.link}}">
+                        <i class="{{item.icon}}"></i>
+                        <span> {{item.tab}} </span>
+                    </a> -->
+                    <a class="cursor" *ngIf="item.menuGroups.length > 0" (click)="openMenu(i)">
+                        <i class="{{getIcon(item.tab)}}"></i>
+                        <span> {{item.tab}}</span>
+                        <span class="menu-arrow" [class.open]="item.open"></span>
+                    </a>
+                    <div *ngIf="item.menuGroups.length > 0" class="collapse" [class.show]="item.open">
+                        <ul class="nav-second-level">
+                            <li *ngFor="let child of item.menuGroups; let x = index;">
+                                <!-- <a *ngIf="!child.childs" routerLink="{{child.link}}">
+                                    <span> {{child.text}} </span>
+                                </a> -->
+                                <ng-container *ngIf="child.group == 'Reports' && child.menuItems[0].roleAllowed else report;">
+                                    <a  [href]="reportUrl" target="_blank" routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{exact: true}">Reports</a>
+                                </ng-container>
+                                <ng-template #report>
+                                    <a class="cursor"
+                                        *ngIf="getChilds(child.menuItems) && getChilds(child.menuItems).length > 0"
+                                        (click)="openMenu(i, x)">
+                                        <span> {{child.group}} </span>
+                                        <span class="menu-arrow" [class.open]="child.open"></span>
+                                    </a>
+                                </ng-template>
+                                <div *ngIf="getChilds(child.menuItems) && getChilds(child.menuItems).length > 0"
+                                    class="collapse" [class.show]="child.open">
+                                    <ul class="nav-second-level">
+                                        <li *ngFor="let childx of getChilds(child.menuItems)" (click)="removeClass()">
+                                            <a routerLink="{{getUrl(child.group ,childx.item)}}"
+                                                routerLinkActive="active"
+                                                [routerLinkActiveOptions]="{exact: true}">{{childx.item}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="clearfix"></div>
+
+    </div>
+    <!-- Sidebar -left -->
+
+</div>
+<!-- Left Sidebar End -->

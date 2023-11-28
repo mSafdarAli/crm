@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{(EmailManagerID)?'Edit':'New'}}</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form" class="my-2" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-6 my-2">
+
+            <div class="mb-3">
+                <input class="form-control" type="text" id="name" formControlName="name" placeholder="Name">
+                <vmessage field="name" [control]="form.controls['name']"></vmessage>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" type="text" id="text" formControlName="subject" placeholder="Subject">
+                <vmessage field="subject" [control]="form.controls['subject']"></vmessage>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="4"
+                        formControlName="sendTo" placeholder="Send To"></textarea>
+                    <vmessage field="sendTo" [control]="form.controls['sendTo']"></vmessage>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="form-group">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="6"
+                        formControlName="description" placeholder="Description"></textarea>
+                    <vmessage field="description" [control]="form.controls['description']"></vmessage>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" formControlName="previewFirst">
+                        <label class="form-check-label">
+                            Preview Before Sending
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" formControlName="sendtorep">
+                        <label class="form-check-label">
+                            Send To Rep
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" formControlName="sendtolinkedcontacts">
+                        <label class="form-check-label">
+                            Send To Linked Contacts
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" formControlName="active">
+                        <label class="form-check-label">
+                            Active
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="my-2">
+                <div class="mb-3">
+                    <!-- <angular-editor formControlName="templateHTML" [config]="config"></angular-editor> -->
+                    <div class="NgxEditor__Wrapper">
+                        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
+                        <ngx-editor [editor]="editor" [placeholder]="'Type here...'" formControlName="templateHTML">
+                        </ngx-editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary float-end">
+                {{(EmailManagerID)? "Update" : "Save"}}
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,386 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8  col-lg-6 col-12">
+                <h4 class="font-22">{{title}} </h4>
+            </div>
+            <div class="col-md-4 col-lg-6 col-12">
+                <div class="float-lg-end float-sm-start">
+                    <!-- <button class="btn btn-primary  mt-2 mt-lg-0 mt-md-0" (click)="searchProducts()">Search
+                        Product</button> -->
+                    <button *ngIf="title=='View Order'" class="btn btn-danger  ms-1 mt-2 mt-lg-0 mt-md-0"
+                        (click)="overRide()">Override</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <mat-stepper [linear]="!form.valid" #stepper>
+                    <mat-step [stepControl]="form" label="Step 1">
+                        <form [formGroup]="form" class="my-2">
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <mat-form-field class="w-100">
+                                            <input type="text" (keyup)="getCustomers()" placeholder="Customer"
+                                                aria-label="Number" matInput formControlName="customerId"
+                                                [matAutocomplete]="auto2">
+                                            <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn"
+                                                (optionSelected)="getContactNames($event)">
+                                                <mat-option *ngFor="let option of selectCustomer" [value]="option">
+                                                    {{option.name}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                    </div>
+                                    <!-- <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Customer" [multiple]="false"
+                                            [clear]="true" [fControl]="form.controls['customerId']"
+                                            [options]="selectCustomer" (selectionChange)='getContactNames($event)'>
+                                        </lb-auto-complete>
+                                    </div> -->
+                                    <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Contact Name"
+                                            [multiple]="false" [clear]="true" [fControl]="form.controls['contactName']"
+                                            [options]="selectContactName" (selectionChange)="changeEmail()">
+                                        </lb-auto-complete>
+                                    </div>
+                                    <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Contact Email"
+                                            [multiple]="false" [clear]="true" [fControl]="form.controls['contactEmail']"
+                                            [options]="selectContactEmail" (selectionChange)="changeName()">
+                                        </lb-auto-complete>
+                                    </div>
+                                    <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Job Type" [multiple]="false"
+                                            [clear]="true" [fControl]="form.controls['jobTypeId']"
+                                            [options]="selectJobType">
+                                        </lb-auto-complete>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" type="text" formControlName="customerOrderNo"
+                                            placeholder="Customer Purchase Order">
+                                        <vmessage field="customerOrderNo" [control]="form.controls['customerOrderNo']">
+                                        </vmessage>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-1">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <input class="form-control" type="text" id="text"
+                                                    formControlName="quoteNo" placeholder="Quote No." readonly>
+                                                <vmessage field="quoteNo" [control]="form.controls['quoteNo']">
+                                                </vmessage>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="">
+                                                <app-date-picker placeholderText="Date"
+                                                    [fControl]="form.controls['quoteDate']" [disabled]="true">
+                                                </app-date-picker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="">
+                                                <input class="form-control" type="text" id="text"
+                                                    formControlName="orderNo" placeholder="Order No." readonly>
+                                                <vmessage field="orderNo" [control]="form.controls['orderNo']">
+                                                </vmessage>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mt-2 mt-lg-0 mt-md-0">
+                                                <app-date-picker placeholderText="Date"
+                                                    [fControl]="form.controls['orderDate']" [disabled]="true">
+                                                </app-date-picker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" type="text" id="text" formControlName="jobName"
+                                            placeholder="Job Name">
+                                        <vmessage field="jobName" [control]="form.controls['jobName']">
+                                        </vmessage>
+                                    </div>
+                                    <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Rep" [multiple]="false"
+                                            [clear]="true" [fControl]="form.controls['repId']" [options]="selectRep">
+                                        </lb-auto-complete>
+                                    </div>
+
+                                    <div class="">
+                                        <lb-auto-complete [disabledSelect]="true" appearance="outline"
+                                            placeholder="Status" [multiple]="false" [clear]="true"
+                                            [fControl]="form.controls['jobStatusId']" [options]="selectJobStatus">
+                                        </lb-auto-complete>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Delivery" [multiple]="false"
+                                            [clear]="true" [fControl]="form.controls['deliveryId']"
+                                            [options]="selectDelivery">
+                                        </lb-auto-complete>
+                                        <div class="">
+                                            <lb-auto-complete appearance="outline" placeholder="Lead Time"
+                                                [multiple]="false" [clear]="true"
+                                                [fControl]="form.controls['leadTimeId']" [options]="selectLeadTime">
+                                            </lb-auto-complete>
+                                        </div>
+                                        <div class="">
+                                            <lb-auto-complete appearance="outline" placeholder="Discount"
+                                                [multiple]="false" [clear]="true" [fControl]="form.controls['discount']"
+                                                [options]="selectDiscount">
+                                            </lb-auto-complete>
+                                        </div>
+                                        <div class="">
+                                            <app-date-picker placeholderText="Delivery Date"
+                                                [fControl]="form.controls['deliveryDate']">
+                                            </app-date-picker>
+                                        </div>
+                                        <div class="">
+                                            <app-date-picker placeholderText="Deadline Date"
+                                                [fControl]="form.controls['deadlineDate']">
+                                            </app-date-picker>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="form-group">
+                                            <textarea class="form-control" type="text" rows="8"
+                                                formControlName="specialInstructions"
+                                                placeholder="Special Instructions"></textarea>
+                                            <vmessage field="specialInstructions"
+                                                [control]="form.controls['specialInstructions']">
+                                            </vmessage>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="form-group">
+                                            <textarea class="form-control" type="text" rows="8"
+                                                formControlName="deliveryAddress"
+                                                placeholder="Delivery Address"></textarea>
+                                            <vmessage field="deliveryAddress"
+                                                [control]="form.controls['deliveryAddress']">
+                                            </vmessage>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="lineItemForm" label="Step 2">
+                        <button class="btn btn-primary step2-button mt-2 mt-lg-0 mt-md-0"
+                            (click)="searchProducts()">Search
+                            Product</button>
+                        <form [formGroup]="lineItemForm">
+                            <div class="row mt-3">
+                                <!-- <div class="col-md-6">
+                                                            <h4 class="font-20 my-3">Step 2</h4>
+                                                        </div> -->
+                                <!-- <div class="col-md-12">
+                                                            <div class="float-end mt-2">
+                                                                <div class="btn btn-xs btn-secondary"
+                                                                    (click)="viewSummary()">Summary</div>
+                                                                <div class="btn btn-xs btn-warning mx-1" (click)="printPage()">Print</div>
+                                                                <div class="btn btn-xs btn-success" (click)="sendQuote()">Send</div>
+                                                            </div>
+                                                        </div> -->
+
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <input class="form-control" type="text" id="text" formControlName="supplierId"
+                                            placeholder="Supplier" readonly>
+                                        <vmessage field="supplierId" [control]="lineItemForm.controls['supplierId']">
+                                        </vmessage>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" type="text" id="text" formControlName="category"
+                                            placeholder="Category" readonly>
+                                        <vmessage field="category" [control]="lineItemForm.controls['category']">
+                                        </vmessage>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" type="text" id="text" formControlName="productId"
+                                            placeholder="Product" readonly>
+                                        <vmessage field="productId" [control]="lineItemForm.controls['productId']">
+                                        </vmessage>
+                                    </div>
+                                    <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Size" [multiple]="false"
+                                            [clear]="true" [fControl]="lineItemForm.controls['sizeId']"
+                                            [options]="selectSize" (selectionChange)="getCost()">
+                                        </lb-auto-complete>
+                                    </div>
+                                    <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Weight" [multiple]="false"
+                                            [clear]="true" [fControl]="lineItemForm.controls['weightId']"
+                                            [options]="selectWeight" (selectionChange)="getCost()">
+                                        </lb-auto-complete>
+                                    </div>
+                                    <div class="">
+                                        <lb-auto-complete appearance="outline" placeholder="Colour" [multiple]="false"
+                                            [clear]="true" [fControl]="lineItemForm.controls['colourId']"
+                                            (selectionChange)="getCost()" [options]="selectColour">
+                                        </lb-auto-complete>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <input class="form-control" type="number" formControlName="quantity"
+                                            placeholder="Quantity" min="1">
+                                        <vmessage field="quantity" [control]="lineItemForm.controls['quantity']">
+                                        </vmessage>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" type="number" formControlName="markup"
+                                            placeholder="Markup %" [(ngModel)]="markup"
+                                            (change)="newSelling(lineItemForm.value.costPrice , lineItemForm.value.markup)">
+                                        <vmessage field="markup" [control]="lineItemForm.controls['markup']">
+                                        </vmessage>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" type="number" formControlName="costPrice"
+                                            placeholder="Cost price"
+                                            (change)="newSelling(lineItemForm.value.costPrice , lineItemForm.value.markup)">
+                                        <vmessage field="costPrice" [control]="lineItemForm.controls['costPrice']">
+                                        </vmessage>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control" type="number" formControlName="sellingPrice"
+                                            [(ngModel)]="selling" placeholder="Selling Price"
+                                            (change)="sellingChange(lineItemForm.value.sellingPrice , lineItemForm.value.costPrice)">
+                                        <vmessage field="sellingPrice"
+                                            [control]="lineItemForm.controls['sellingPrice']">
+                                        </vmessage>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input class="form-control" type="number" min="0" max="100"
+                                            formControlName="lineDiscount" placeholder="Discount %"
+                                            ng-pattern="/^[0-100]+(\.[0-9]{1,2})?$/" step="0.01">
+                                        <vmessage field="lineDiscount"
+                                            [control]="lineItemForm.controls['lineDiscount']">
+                                        </vmessage>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" type="text"
+                                                rows="8" formControlName="notes" placeholder="Notes"></textarea>
+                                            <vmessage field="notes" [control]="lineItemForm.controls['notes']">
+                                            </vmessage>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="btn btn-primary btn-success float-end" (click)="pushData()">
+                                        {{(lineId>0)?"Update":"Add"}}</div>
+                                </div>
+                            </div>
+
+                            <div class="row ">
+                                <div class="col-12">
+                                    <div class="responsive-table-plugin">
+                                        <div class="table-category-plugin">
+                                            <div class="table-responsive" data-pattern="priority-columns">
+                                                <table id="tech-companies-1" class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+
+
+                                                            <th>Supplier</th>
+                                                            <th>Code</th>
+                                                            <th>Product</th>
+                                                            <th>Size</th>
+                                                            <th>Weight</th>
+                                                            <th>Colour</th>
+                                                            <th>Qty</th>
+                                                            <th>Cost</th>
+                                                            <th>Selling</th>
+                                                            <th>Discount %</th>
+                                                            <th>Action</th>
+                                                            <th>Branding</th>
+                                                            <!-- <th>Picture</th> -->
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let items of pushedData">
+                                                            <th>{{items.supplier}}</th>
+                                                            <td>{{items.productCode}}</td>
+                                                            <td class="w-25">{{items.product}}</td>
+                                                            <td>{{items.size}}</td>
+                                                            <td>{{items.weight}}</td>
+                                                            <th>{{items.colour}}</th>
+                                                            <th>{{items.quantity}}</th>
+                                                            <td>{{(items.costPrice)}}</td>
+                                                            <td>{{(items.sellingPrice)}}</td>
+                                                            <td>{{items.lineDiscount}}</td>
+                                                            <td>
+                                                                <div class="btn btn-warning btn-xs me-1"
+                                                                    (click)="editForm((items.quoteDetailId)?items.quoteDetailId:items._id)">
+                                                                    <i class=" fe-edit text-white"></i>
+                                                                </div>
+                                                                <div class="btn btn-danger btn-xs ms-0 ms-lg-0 ms-md-0 mt-lg-0 mt-1 mt-md-1"
+                                                                    (click)="deleteQuoteLine(items._id, items.quoteDetailId)">
+                                                                    <i class="fe-trash-2 text-white"></i>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="btn btn-secondary btn-xs"
+                                                                    (click)="brandingPopup((supplierID)?supplierID: items.supplierId ,items.productId,items.quantity, (items.quoteDetailId)?items.quoteDetailId:items._id, (items?.quotePrintings?.length>0)?items.quotePrintings:[])">
+                                                                    <i class=" fe-edit text-white"></i>
+                                                                </div>
+                                                            </td>
+                                                            <!-- <td>
+                                                                <div class="btn btn-success btn-xs upload-btn-wrapper">
+                                                                    <i class=" fe-image text-white"><input type="file"
+                                                                            formControlName="filename"
+                                                                            (change)="uploadFile()" /></i>
+                                                                </div>
+                                                            </td> -->
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary float-end"
+                                        [disabled]="(form.value.jobStatusId !=95 || pushedData.length == 0) && !overRideBit"
+                                        (click)="onsubmit()">{{(quoteId)?"Update":"Save"}}</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </mat-step>
+                </mat-stepper>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

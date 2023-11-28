@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{(extraPricesId)?'Edit':'New'}}</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="">
+                        <div class="">
+                            <div class="row">
+                                <div class="mb-3" >
+                                    <input disabled class="form-control" type="text" id="text" formControlName="code"
+                                        placeholder="Code" >
+                                    <vmessage field="code" [control]="form.controls['code']"></vmessage>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="input-group input-group-merge">
+                                            <input type="number" min="0" id="text" class="form-control" formControlName="unit"
+                                                placeholder="Unit">
+                                            <vmessage field="unit" [control]="form.controls['unit']"></vmessage>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <div class="input-group input-group-merge">
+                                            <input type="number" min="0" id="text" class="form-control" formControlName="price"
+                                                placeholder="Price">
+                                            <vmessage field="price" [control]="form.controls['price']"></vmessage>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="5"
+                                        formControlName="description" placeholder="Description"></textarea>
+                                    <vmessage field="description" [control]="form.controls['description']"></vmessage>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" formControlName="active" id="flexCheckChecked">
+                                <label class="form-check-label fw-semibold" for="flexCheckChecked">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-primary float-end">
+                        {{(extraPricesId)?"Update":"Save"}}
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>

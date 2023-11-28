@@ -1,0 +1,85 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="font-22">Users</h4>
+            </div>
+            <div class="col-md-12 col-lg-4 col-12">
+                <div>
+                    <form class="search-bar" [formGroup]="search">
+                        <div class="position-relative">
+                            <input type="text" class="form-control form-control-white" formControlName="search"
+                                (keydown.enter)="searchActionTypes({query : this.search.value.search})"
+                                placeholder="Search Users">
+                            <span class="mdi mdi-magnify" (click)="searchActionTypes({query : this.search.value.search})"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <button class="btn btn-primary w-100  float-end mt-2 mt-lg-0 mt-md-2" (click)="newDialog()">New</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="responsive-table-plugin">
+                    <div class="table-rep-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table matSort (matSortChange)="sortData($event)" id="tech-companies-1"
+                                class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th mat-sort-header="firstName">First Name</th>
+                                        <th mat-sort-header="lastName">Last Name</th>
+                                        <th mat-sort-header="userName">User Name</th>
+                                        <th mat-sort-header="contactNumber">Contact No.</th>
+                                        <th mat-sort-header="emailAddress">Email</th>
+                                        <th>Active</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data">
+                                        <th>{{item.firstName}}</th>
+                                        <td>{{item.lastName}}</td>
+                                        <td>{{item.userName}}</td>
+                                        <td>{{item.contactNumber}}</td>
+                                        <td>{{item.emailAddress}}</td>
+                                        <td> <input onclick="return false;" type="checkbox" class="form-check-input ms-2" id="customCheck2"
+                                                [checked]="item.active">
+                                        </td>
+                                        <td>
+                                            <div class="btn btn-warning btn-xs button1 ms-md-0 ms-lg-1 ms-xl-0" (click)="newDialog(item.id)"><i
+                                                    class="fe-edit text-white"></i>
+                                            </div>
+                                            <div class="btn btn-danger btn-xs ms-0 ms-lg-1 ms-xl-2 ms-md-0 mt-1 mt-lg-0 mt-md-1 " (click)="deleteUser(item.id)"><i
+                                                    class="fe-trash-2 text-white"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <button class="btn btn-danger btn-xs" (click)="getPrevious()"
+                        [class.disabled]="start == 1">Previous</button>
+                    <button class="btn btn-primary btn-xs ms-1" (click)="getNext()"
+                        [class.disabled]="end >= count">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">New Role</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row">
+        <div class="col-12">
+            <div class="input-group input-group-merge">
+                <input type="text"  class="form-control" formControlName="name"
+                    placeholder="Role Name" >
+                <vmessage field="name" [control]="form.controls['name']"></vmessage>
+            </div>
+        </div>
+        
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <button class="btn btn-primary float-end">Save</button>
+        </div>
+    </div>  
+</form>

@@ -1,0 +1,6 @@
+{
+	"/OrderMationApi/": {
+		"target": "http://102.133.225.222/",
+		"secure": false
+	}
+}

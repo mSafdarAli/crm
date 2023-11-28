@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kevin-frontend
+  labels:
+   name: kevin-frontend
+   app: kevin-front-demo-pod
+spec:
+  containers:
+  - name: frontend
+    image: kevin
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 80

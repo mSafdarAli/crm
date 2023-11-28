@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-8 col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Create Order</h5>
+    </div>
+    <div class="col-md-4 col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row my-2">
+        <div class="col-md-12">
+            <div>
+                <input class="form-control" type="text" formControlName="customerOrderNo" placeholder="Customer Order No">
+                <vmessage field="customerOrderNo" [control]="form.controls['customerOrderNo']">
+                </vmessage>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary float-end">Save</button>
+        </div>
+    </div>
+</form>

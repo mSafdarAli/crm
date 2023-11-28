@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-6  align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{title}} PDF</h5>
+    </div>
+    <div class="col-6 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<div class="row ">
+    <div class="col-12">
+        <div (click)="type='1';">
+            <div class="card-body text-center">
+                <a [href]="(data.from=='Order')? orderLink:data.data.report" target="_blank"><img src="/assets/images/pdf1.png" alt="PDF" width="200px"></a>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="mt-2 text-center me-1">
+            <div class="btn btn-warning mx-1" (click)="printPage()">Print</div>
+            <div class="btn btn-success" (click)="sendQuote()">Send</div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

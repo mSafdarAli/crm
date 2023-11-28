@@ -1,0 +1,48 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="font-22">Permissions</h4>
+            </div>
+            <div class="col-md-12 col-lg-4 col-12">
+            </div>
+            <div class="col-lg-2">
+                <button class="btn btn-primary w-100  float-end mt-2 mt-lg-0 mt-md-2" (click)="newDialog()">New</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <lb-auto-complete appearance="outline" placeholder="Select Role" [multiple]="false" [clear]="true"
+                        [fControl]="form.controls['roleId']" [options]="selectRole"
+                        (selectionChange)='getSitePages($event)'>
+                    </lb-auto-complete>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" *ngFor="let item of sitePages; let i = index">
+        <div class="card-body">
+            <div class="row my-3">
+                <h4 class="text-primary"><b>{{item.tab}}</b></h4>
+                <div class="col-md-12" *ngFor="let subitems of item.menuGroups">
+                    <h5> {{subitems.group}}</h5>
+                    <div *ngFor="let menuitem of subitems.menuItems" class="d-inline-block m-3 ms-0">
+                        <mat-slide-toggle (click)="pushId(menuitem.id)" [checked]="menuitem.roleAllowed">
+                            {{menuitem.item}}</mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3" *ngIf="sitePages.length == (i+1)">
+                <div class="col-md-12">
+                    <button class="btn btn-primary float-end">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<app-loading></app-loading>

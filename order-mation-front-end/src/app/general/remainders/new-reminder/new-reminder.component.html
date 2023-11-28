@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{(reminderID)?'Edit' : 'New'}}</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form  [formGroup]="form" class="my-2" (ngSubmit)="submit()">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <input class="form-control" type="text" id="name" formControlName="name" placeholder="Name">
+                        <vmessage field="name" [control]="form.controls['name']"></vmessage>
+                    </div>                    
+                    <div class="mb-3">
+                        <div class="form-group">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="5"
+                                formControlName="description" placeholder="Description"></textarea>
+                            <vmessage field="description" [control]="form.controls['description']"></vmessage>
+                        </div>
+                    </div>
+                    <div class="">
+                        <lb-auto-complete appearance="outline" placeholder="Days" [multiple]="false" [clear]="true"
+                            [fControl]="form.controls['days']" [options]="selectdays">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="">
+                        <lb-auto-complete appearance="outline" placeholder="Before/After" [multiple]="false"
+                            [clear]="true" [fControl]="form.controls['beforeafter']" [options]="selectbeforeafter">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="">
+                        <lb-auto-complete appearance="outline" placeholder="Date" [multiple]="false" [clear]="true"
+                            [fControl]="form.controls['dateType']" [options]="selectdate">
+                        </lb-auto-complete>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div *ngIf="form.value.dateType == 'Action'">
+                    <div class="" >
+                        <lb-auto-complete appearance="outline" placeholder="Start Action" [multiple]="false"
+                            [clear]="true" [fControl]="form.controls['startOnAction']" [options]="selectstartaction">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="">
+                        <lb-auto-complete appearance="outline" placeholder="Stop Action" [multiple]="false"
+                            [clear]="true" [fControl]="form.controls['stopOnAction']" [options]="selectstopaction">
+                        </lb-auto-complete>
+                    </div>
+                </div>
+                    <div class="">
+                        <lb-auto-complete appearance="outline" placeholder="Mail Template" [multiple]="false"
+                            [clear]="true" [fControl]="form.controls['notificationTemplate']" [options]="selectmailtemplate">
+                        </lb-auto-complete>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" formControlName="sendToCustomer" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Send to Customer
+                                </label>
+                            </div>
+                        </div>                        
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" formControlName="sendToRep" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Send to Rep
+                                </label>
+                            </div>
+                        </div>      
+                    </div>
+                    <div class="row mt-3">                 
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" formControlName="attachQuote" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Attach Quote
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" formControlName="attachOrder" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Attach Order
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" formControlName="active" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button class="btn btn-primary float-end">
+                        {{(reminderID)?"Update":"Save"}}
+                    </button>
+                </div>
+            </div>
+</form>

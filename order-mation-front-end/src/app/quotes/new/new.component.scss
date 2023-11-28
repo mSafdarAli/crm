@@ -1,0 +1,33 @@
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}  
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;    
+}
+
+::ng-deep .mat-stepper-horizontal-line {
+  display: none !important;
+}
+.step2-button{
+  display: flex !important;
+    top: 43px !important;
+    right: 49px !important;
+    position: absolute !important;
+}
+
+@media screen and (max-width: 450px) {
+  .step2-button {
+    display: flex !important;
+    top: -100px !important;
+    right: 17px !important;
+    position: absolute !important;
+    
+  }
+}

@@ -1,0 +1,102 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-xl-6">
+                <h4 class="font-22">Task History</h4>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-3">
+                <div>
+                    <form class="search-bar" [formGroup]="search">
+                        <div class="position-relative">
+                            <input type="text" class="form-control form-control-white"
+                                placeholder="Search Task History" formControlName="search"
+                                (keydown.enter)="searchActionTypes({query : search.value.search})">
+                            <span class="mdi mdi-magnify" (click)="searchActionTypes({query : this.search.value.search})"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-xl-3">
+                <div class="float-end mt-2 mt-lg-0 mt-md-0">
+                    <button *ngIf="ps.havePerm('tasksnew')" class="btn btn-primary" (click)="newDialog()">New</button>
+                    <button class="btn btn-primary ms-2" (click)="exportexcel()">Export To Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="responsive-table-plugin">
+                    <div class="table-category-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table matSort (matSortChange)="sortData($event)" id="tech-companies-1" class="table table-striped">
+                                <thead>
+                                    <tr>
+
+
+                                        <th mat-sort-header="id">Task No</th>
+                                        <th mat-sort-header="taskDate">Task Date</th>
+                                        <th mat-sort-header="taskType">Task Type</th>
+                                        <th mat-sort-header="name">Name</th>
+                                        <th mat-sort-header="description">Description</th>
+                                        <th mat-sort-header="dueDate">Due Date</th>
+                                        <th mat-sort-header="createdBy">Created By</th>
+                                        <th mat-sort-header="taskStatus">Status</th>
+                                        <th mat-sort-header="dateAssigned">Date Assigned</th> 
+                                        <th mat-sort-header="assignedTo">Assigned To</th>  
+                                        <th mat-sort-header="dateStarted">Date Started</th>
+                                        <th mat-sort-header="startedBy">Started By</th>   
+                                        <th mat-sort-header="dateComplete">Date Completed</th>
+                                        <th mat-sort-header="completedBy">Completed By</th>
+                                                                           
+                                        
+                                        <th>Action</th>                                     
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let items of data">
+                                        <th>{{items.id}}</th>
+                                        <td>{{(items.taskDate)?moment(items.taskDate).format('DD-MM-YYYY'):null}}</td>
+                                        <td>{{items.taskType}}</td>
+                                        <td>{{items.name}}</td>
+                                        <td>{{items.description}}</td>
+                                        <th>{{(items.dueDate)?moment(items.dueDate).format('DD-MM-YYYY'):null}}</th>
+                                        <td>{{items.createdBy}}</td>
+                                        <td>{{items.taskStatus}}</td>
+                                        <td>{{(items.dateAssigned)?moment(items.dateAssigned).format('DD-MM-YYYY'):null}}</td>
+                                        <td>{{items.assignedTo}}</td>
+                                        <td>{{(items.dateStarted)?moment(items.dateStarted).format('DD-MM-YYYY'):null}}</td>
+                                        <td>{{items.startedBy}}</td>
+                                        <td>{{(items.dateComplete)?moment(items.dateComplete).format('DD-MM-YYYY'):null}}</td>
+                                        <td>{{items.completedBy}}</td>
+                                       
+                                        <td><button class="btn btn-success" mat-button
+                                            [matMenuTriggerFor]="menu">Menu</button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="viewTask(items.id)">View Task</button>
+                                            <button mat-menu-item (click)="comment_popUp(items.id)">Notes</button>                                           
+                                            <button mat-menu-item (click)="repeatTask(items.id)">Repeat Task</button>                                                                                       
+                                        </mat-menu></td>                                                                         
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <button class="btn btn-danger btn-xs" (click)="getPrevious()"
+                        [class.disabled]="start == 1">Previous</button>
+                    <button class="btn btn-primary btn-xs ms-1" (click)="getNext()" [class.disabled]="end >= count">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

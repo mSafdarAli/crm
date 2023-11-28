@@ -1,0 +1,84 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h4 class="font-22">Complaints History</h4>
+            </div>
+            <div class="col-md-4">
+            <form class="search-bar" [formGroup]="search">
+                <div class="position-relative">
+                    <input type="text" class="form-control form-control-white" formControlName="search"
+                        (keydown.enter)="searchComplaintsHistory({query : this.search.value.search})" placeholder="Search Complaints">
+                    <span class="mdi mdi-magnify" (click)="searchComplaintsHistory({query : this.search.value.search})"></span>
+                </div>
+            </form>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="float-start float-lg-end float-md-end">
+                    <!-- <button *ngIf="ps.havePerm('complaints')" class="btn btn-primary" (click)="searchQuote()">New</button> -->
+                    <button class="btn btn-primary ms-1 mt-2 mt-lg-0 mt-md-0" (click)="exportexcel()">Export To Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="responsive-table-plugin">
+                    <div class="table-category-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table matSort (matSortChange)="sortData($event)" id="history" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th mat-sort-header="quoteNo">Quote No</th>
+                                        <th mat-sort-header="quoteDate">Quote Date</th>
+                                        <th mat-sort-header="orderNo">Order No</th>
+                                        <th mat-sort-header="orderDate">Order Date</th>
+                                        <th mat-sort-header="customer">Customer</th>
+                                        <th mat-sort-header="jobName">Job Name</th>
+                                        <th mat-sort-header="repName">Rep Name</th>
+                                        <th mat-sort-header="complaintDate">Complaint Date</th>
+                                        <th mat-sort-header="reason">Reason</th>
+                                        <th mat-sort-header="status">Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data">
+                                        <td>{{item?.quoteNo}}</td>
+                                        <td>{{moment(item?.quoteDate).format("DD-MM-YYYY")}}</td>
+                                        <td>{{item?.orderNo}}</td>
+                                        <td>{{(item?.orderDate!=null) ? moment(item?.orderDate).format("DD-MM-YYYY") : null}}</td>
+                                        <td>{{item?.customer}}</td>
+                                        <td>{{item?.jobName}}</td>
+                                        <td>{{item?.repName}}</td>
+                                        <td>{{moment(item?.complaintDate).format("DD-MM-YYYY")}}</td>
+                                        <td>{{item?.reason}}</td>
+                                        <td>{{item?.status}}</td>
+                                        <td><button class="btn btn-success" mat-button
+                                            [matMenuTriggerFor]="menu">Menu</button>
+                                        <mat-menu #menu="matMenu">
+                                            <button *ngIf="ps.havePerm('complaints')" mat-menu-item (click)="openNewComplaint(item.quoteId)">View Complaint</button>                                            
+                                        </mat-menu></td>                                                                                                                                      
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <button class="btn btn-danger btn-xs" (click)="getPrevious()"
+                        [class.disabled]="start == 1">Previous</button>
+                    <button class="btn btn-primary btn-xs ms-1" (click)="getNext()" [class.disabled]="end >= count">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

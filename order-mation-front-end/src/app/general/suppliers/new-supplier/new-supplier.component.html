@@ -1,0 +1,252 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{(suppliersID)?'Edit' : 'New'}}</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <mat-tab-group>
+                <mat-tab label="Details">
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+
+                            <div class="mb-3">
+                                <input class="form-control" type="text" id="code" formControlName="code"
+                                    placeholder="Code">
+                                <vmessage field="code" [control]="form.controls['code']"></vmessage>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="input-group input-group-merge">
+                                    <input type="text" class="form-control" formControlName="description"
+                                        placeholder="Description">
+                                    <vmessage field="description" [control]="form.controls['description']"></vmessage>
+                                </div>
+                            </div>
+                            <div class="">
+                                <lb-auto-complete appearance="outline" placeholder="Supplier Type" [multiple]="false"
+                                    [clear]="true" [fControl]="form.controls['supplierTypeId']"
+                                    [options]="selectsupplier">
+                                </lb-auto-complete>
+                            </div>
+                            <div class="">
+                                <lb-auto-complete appearance="outline" placeholder="Account Type" [multiple]="false"
+                                    [clear]="true" [fControl]="form.controls['accountTypeId']"
+                                    [options]="selectaccount">
+                                </lb-auto-complete>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="number" formControlName="vatNo" placeholder="Vat No">
+                                <vmessage field="vatNo" [control]="form.controls['vatNo']"></vmessage>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="number" formControlName="vatAmount"
+                                    placeholder="Vat Amount">
+                                <vmessage field="vatAmount" [control]="form.controls['vatAmount']"></vmessage>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <input class="form-control" type="tel" formControlName="telNo1" placeholder="Tel No">
+                                <vmessage field="telNo1" [control]="form.controls['telNo1']"></vmessage>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="tel" formControlName="telNo2" placeholder="Cell No">
+                                <vmessage field="telNo2" [control]="form.controls['telNo2']"></vmessage>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="tel" formControlName="faxNo" placeholder="Fax No">
+                                <vmessage field="faxNo" [control]="form.controls['faxNo']"></vmessage>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="email" formControlName="emailAddress"
+                                    placeholder="Email Address">
+                                <vmessage field="emailAddress" [control]="form.controls['emailAddress']"></vmessage>
+                            </div>
+                            <div class="mb-2">
+                                <lb-auto-complete appearance="outline" placeholder="Payment Terms" [multiple]="false"
+                                    [clear]="true" [fControl]="form.controls['paymentTermsId']"
+                                    [options]="selectpaymentterms">
+                                </lb-auto-complete>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" formControlName="active"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <input class="form-control" type="text" id="text" formControlName="website"
+                                    placeholder="Website">
+                                <vmessage field="website" [control]="form.controls['website']"></vmessage>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" formControlName="sendPurchaseOrder"
+                                    id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Send Purchase Order
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-tab>
+                <mat-tab label="Address">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Postal Address</h4>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" id="text" formControlName="postalAddress1"
+                                    placeholder="Line 1">
+                                <vmessage field="postalAddress1" [control]="form.controls['postalAddress1']"></vmessage>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" id="text" formControlName="postalAddress2"
+                                    placeholder="Line 2">
+                                <vmessage field="postalAddress2" [control]="form.controls['postalAddress2']"></vmessage>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" id="text" formControlName="postalAddress3"
+                                    placeholder="Line 3">
+                                <vmessage field="postalAddress3" [control]="form.controls['postalAddress3']"></vmessage>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <input class="form-control" type="text" id="password"
+                                            formControlName="postalCode" placeholder="Code">
+                                        <vmessage field="postalCode" [control]="form.controls['postalCode']"></vmessage>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Physical Address</h4>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" id="text" formControlName="physicalAddress1"
+                                    placeholder="Line 1">
+                                <vmessage field="physicalAddress1" [control]="form.controls['physicalAddress1']">
+                                </vmessage>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" id="text" formControlName="physicalAddress2"
+                                    placeholder="Line 2">
+                                <vmessage field="physicalAddress2" [control]="form.controls['physicalAddress2']">
+                                </vmessage>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control" type="text" id="text" formControlName="physicalAddress3"
+                                    placeholder="Line 3">
+                                <vmessage field="physicalAddress3" [control]="form.controls['physicalAddress3']">
+                                </vmessage>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <input class="form-control" type="text" id="password"
+                                            formControlName="physicalCode" placeholder="Code">
+                                        <vmessage field="physicalCode" [control]="form.controls['physicalCode']">
+                                        </vmessage>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary  float-end">{{(suppliersID)?"Update":"Save"}}</button>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Contacts" *ngIf="suppliersID">
+                    <form [formGroup]="contactform" class="my-4" (ngSubmit)="contactSave()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="input-group input-group-merge">
+                                                    <input type="text" class="form-control" formControlName="name"
+                                                        placeholder="Name">
+                                                    <vmessage field="name" [control]="contactform.controls['name']">
+                                                    </vmessage>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="input-group input-group-merge">
+                                                    <input type="email" class="form-control" formControlName="email"
+                                                        placeholder="Email Address">
+                                                    <vmessage field="email" [control]="contactform.controls['email']">
+                                                    </vmessage>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="input-group input-group-merge">
+                                                    <input type="tel" class="form-control" formControlName="contactNo"
+                                                        placeholder="Contact Number">
+                                                    <vmessage field="contactNo"
+                                                        [control]="contactform.controls['contactNo']">
+                                                    </vmessage>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary  float-end">{{(contactId)?"Update":"Save"}}</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="responsive-table-plugin">
+                        <div class="table-category-plugin">
+                            <div class="table-responsive" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Contact</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let items of supplierContacts">
+                                            <th>{{items.name}}</th>
+                                            <td>{{items.email}}</td>
+                                            <td>{{items.contactNo}}</td>
+                                            <td>
+                                                <button class="btn btn-warning btn-xs" type="button"
+                                                    (click)="getsingleContact(items.id)"><i
+                                                        class="fe-edit text-white"></i>
+                                                </button>
+                                                <button class="btn btn-danger btn-xs ms-1 "
+                                                    (click)="deleteContact(items.id)"><i
+                                                        class="fe-trash-2 text-white"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Dispatch Notes</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+
+<div class="responsive-table-plugin">
+    <div class="table-category-plugin">
+        <div class="table-responsive" data-pattern="priority-columns">
+            <table id="tech-companies-1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Dispatch Notes</th>
+                        <th>Print</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let items of history">
+                        <td>{{items.orderNo }} - {{items.documentNo}}</td>
+                        <td><button class="btn btn-primary" (click)="printDispatchNote(items.documentNo)">Print</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

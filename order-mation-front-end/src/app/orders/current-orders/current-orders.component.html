@@ -1,0 +1,108 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h4 class="font-22">Current Orders</h4>
+            </div>
+            <div class="col-md-4">
+                <div >
+                    <form class="search-bar" [formGroup]="search">
+                        <div class="position-relative">
+                            <input type="text" class="form-control form-control-white" formControlName="search"
+                                (keydown.enter)="searchOrders({query : this.search.value.search})"
+                                placeholder="Search Orders">
+                            <span class="mdi mdi-magnify" (click)="searchOrders({query : this.search.value.search})"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="float-end mt-2 mt-lg-0 mt-md-0">
+                    <button class="btn btn-primary" routerLink="/quotes/new-quotes" *ngIf="ps.havePerm('newquote')">New</button>
+                    <button class="btn btn-primary ms-2" (click)="exportCurrentOrders()">Export To Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="responsive-table-plugin">
+                    <div class="table-category-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table matSort (matSortChange)="sortData($event)" id="tech-companies-1" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th mat-sort-header="orderNo">OrderNo</th>
+                                        <th mat-sort-header="quoteDate">OrderDate</th>
+                                        <th mat-sort-header="sales">Sales</th>
+                                        <th mat-sort-header="jobStatus">Status</th>
+                                        <th mat-sort-header="customer">Customer</th>
+                                        <th mat-sort-header="contactName">Contact</th>
+                                        <th mat-sort-header="jobName">JobName</th>
+                                        <th mat-sort-header="accounts">Accounts</th>
+                                        <th mat-sort-header="art">Art</th>
+                                        <th mat-sort-header="production">Production</th>
+                                        <th mat-sort-header="finishing">Finishing</th>
+                                        <th mat-sort-header="packing">Packing</th>
+                                        <th mat-sort-header="dispatch">Dispatch</th>
+                                        <th mat-sort-header="repName">RepName</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data">
+                                        <td>{{item?.orderNo}}</td>
+                                        <td>{{moment(item?.quoteDate).format('DD-MM-YYYY')}}</td>
+                                        <td>{{item?.sales}}</td>
+                                        <td>{{item?.jobStatus}}</td>
+                                        <td>{{item?.customer}}</td>         
+                                        <td>{{item?.contactName}}</td>         
+                                        <td class="max-width">{{item?.jobName}}</td>
+                                        <td>{{item?.accounts}}</td>
+                                        <td>{{item?.art}}</td>
+                                        <td>{{item?.production}}</td>
+                                        <td>{{item?.finishing}}</td>                                                                           
+                                        <td>{{item?.packing}}</td>         
+                                        <td>{{item?.dispatch}}</td>
+                                        <td>{{item?.repName}}</td>                                        
+                                        <td><button class="btn btn-success" mat-button
+                                            [matMenuTriggerFor]="menu">Menu</button>
+                                        <mat-menu #menu="matMenu">
+                                            <button *ngIf="ps.havePerm('openorder')" (click)="viewOrder(item.quoteId)" mat-menu-item>View Order</button>
+                                            <button *ngIf="ps.havePerm('acceptorder')" (click)="acceptOrder(item.orderNo)" mat-menu-item [disabled]="item.jobStatus == 'Accepted'">Accept Order</button>
+                                            <button *ngIf="ps.havePerm('actionlist')" routerLink="/orders/action-list/{{item.quoteId}}" mat-menu-item>Action List</button>
+                                            <button *ngIf="ps.havePerm('purchaseorder')" routerLink="/orders/purchase-orders/{{item.quoteId}}" mat-menu-item>Purchase Order</button>
+                                            <button *ngIf="ps.havePerm('purchaseoutwork')" routerLink="/orders/branding-purchase-orders/{{item.quoteId}}" mat-menu-item>Branding Purchase Order</button>
+                                            <button *ngIf="ps.havePerm('receivingnote')" routerLink="/orders/receiving-notes/{{item.quoteId}}" mat-menu-item>Receiving Note</button>      
+                                            <button *ngIf="ps.havePerm('despatchnote')" routerLink="/orders/dispatch-notes/{{item.quoteId}}" mat-menu-item>Dispatch Note</button>
+                                            <button *ngIf="ps.havePerm('complaints')" (click)="complaints(item.quoteId , item.orderNo, item.quoteNo)" mat-menu-item>Complaints</button>
+                                            <button mat-menu-item (click)="newDialog(item.quoteId,item.orderNo)">Comments</button>
+                                            <button *ngIf="ps.havePerm('repeatorder')" (click)="repeatOrder(item.quoteId)"  mat-menu-item>Repeat Order</button>
+                                            <button *ngIf="ps.havePerm('sendorder')" (click)="sendOrder(item.quoteId,item.repEmail)" mat-menu-item>Send Order</button>
+                                            <button *ngIf="ps.havePerm('sendartworkcustomer')" (click)="sendArtWork(item.quoteId,item.repEmail)" mat-menu-item>Send Artwork Follow Up</button>
+                                        </mat-menu></td>                                       
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <button class="btn btn-danger btn-xs" (click)="getPrevious()"
+                        [class.disabled]="start == 1">Previous</button>
+                    <button class="btn btn-primary btn-xs ms-1" (click)="getNext()"
+                        [class.disabled]="end >= count">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

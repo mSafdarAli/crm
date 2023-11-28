@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-8 col-6 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Search</h5>
+    </div>
+    <div class="col-md-4 col-6 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<div class="row">
+    <div class="col-md-12 col-lg-12">       
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="text" class="form-label">Quote No</label>
+                <input class="form-control" type="number" formControlName="quoteNo" placeholder="Quote No.">
+            </div>
+            <div class="mb-3">
+                <label for="text" class="form-label">Order No</label>
+                <input readonly class="form-control" type="number"  formControlName="orderNo" placeholder="Order No.">
+            </div>
+            <div>
+                <button class="btn btn-primary float-end" type="submit"> Search </button>
+            </div>
+        </form>
+    </div>
+</div>

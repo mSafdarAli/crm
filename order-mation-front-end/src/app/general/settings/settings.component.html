@@ -1,0 +1,89 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="font-22">Settings</h4>
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <lb-auto-complete appearance="outline" placeholder="Select Settings to Configure" [multiple]="false"
+                        [clear]="true" [fControl]="form.controls['setting']" [options]="selectsettings"
+                        (selectionChange)="selectedSetting($event)">
+                    </lb-auto-complete>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <form class="search-bar" [formGroup]="search">
+                        <div class="position-relative">
+                            <input type="text" class="form-control form-control-white" formControlName="search"
+                                placeholder="Search Settings"
+                                (keydown.enter)="searchActionTypes({query : this.search.value.search})">
+                            <span class="mdi mdi-magnify" (click)="searchActionTypes({query : this.search.value.search})"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-2" *ngIf="form.value.setting != 'configurations'">
+                <button class="btn btn-primary w-100  float-end" *ngIf="form.value.setting != 'configurations'"
+                    (click)="newDialog()">New</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="responsive-table-plugin">
+                    <div class="table-category-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table matSort (matSortChange)="sortData($event)" id="tech-companies-1"
+                                class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th *ngIf="['provinces'].indexOf(form.value.setting)<0" mat-sort-header="code">
+                                            {{(form.value.setting=='siteRoles')?'Name':'Code'}}</th>
+                                        <th mat-sort-header=" description">Description</th>
+                                        <th *ngIf="['configurations'].indexOf(form.value.setting)<0">Active
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let items of data">
+                                        <th *ngIf="['provinces'].indexOf(form.value.setting)<0">
+                                            {{(items?.code)?items?.code:(items?.key)?items?.key:items.name}}</th>
+                                        <td>{{(items?.description)?items?.description:items?.value}}</td>
+                                        <td *ngIf="['configurations'].indexOf(form.value.setting)<0">
+                                            <div class="form-check ms-2">
+                                                <input onclick="return false;" class="form-check-input" type="checkbox"
+                                                    [checked]="items.active" id="flexCheckDefault">
+                                            </div>
+                                        </td>
+                                        <td style="min-width: 120px;">
+                                            <button class="btn btn-warning btn-xs" (click)="newDialog(items.id)"><i
+                                                    class=" fe-edit text-white"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-xs ms-1 "
+                                                *ngIf="['configurations'].indexOf(form.value.setting)<0"
+                                                (click)="deleteSetting(items.id)"><i
+                                                    class="  fe-trash-2 text-white"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

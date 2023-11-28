@@ -1,0 +1,12 @@
+<h2 style="font-size: 6rem;" class="text-center text-danger mb-3"><i class="ti-alert"></i></h2>
+<h4 class="text-center m-b-10" innerHTML="{{data.message}}"></h4>
+<h6 class="text-center" *ngIf="!data.hideUndo">This action can't be undone.</h6>
+
+<div class="m-b-10 mt-2">
+	<div class="text-center button-list">
+		<button mat-ripple class="btn btn-white btn-sm" [mat-dialog-close]="false"><i class="mdi mdi-close"></i>{{
+			(data.noBtn)? data.noBtn: 'No' }}</button>
+		<button mat-ripple class="btn btn-danger btn-sm" [mat-dialog-close]="true"> <i class="mdi mdi-check"></i>{{
+			(data.yesBtn)? data.yesBtn: 'Yes' }} </button>
+	</div>
+</div>

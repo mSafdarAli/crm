@@ -1,0 +1,21 @@
+<!-- <div class="edp" style="width: 100%;display: flex;">
+	<div class="edp-datepicker">
+		<md2-datepicker [style.width]="'100%'" type="date" format="y-MM-dd" mode="landscape" openOnFocus="true"
+			placeholder="{{ placeholderText }}"
+			[min]="minDateRequired && minDateRequired != undefined ? minDate : ''" [formControl]="datepickerControl">
+		</md2-datepicker>
+	</div>
+	<div (click)="datepickerControl.setValue('')" *ngIf="datepickerControl.value" class="clear-btn">
+		<mat-icon class="color-gray">clear</mat-icon>
+	</div>
+</div> -->
+
+<mat-form-field class="w-100">
+	<!-- <mat-label>{{ placeholderText }}</mat-label> -->
+	<input matInput [disabled]="disabled" [matDatepicker]="picker" (focus)="focusOpen(picker)" (click)="picker.open()" placeholder="{{ placeholderText }}" [formControl]="fControl">
+	<!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+	<mat-datepicker #picker [startView]="startView" ></mat-datepicker>
+	<mat-error>
+		<vmessage [form]="null" [control]="fControl"></vmessage>
+	</mat-error>
+</mat-form-field>

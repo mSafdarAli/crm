@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{(saleTargetId)?'Edit':'New'}}</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-4 col-sm-6">
+            <lb-auto-complete appearance="outline" placeholder="Rep" [multiple]="false" [clear]="true"
+                [fControl]="form.controls['repId']" [options]="selectRep">
+            </lb-auto-complete>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <lb-auto-complete appearance="outline" placeholder="Month/Week" [multiple]="false" [clear]="true"
+                 [fControl]="form.controls['monthweek']" [options]="selectone" (selectionChange)="setRequired()">
+            </lb-auto-complete>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <lb-auto-complete  appearance="outline" placeholder="Year" [multiple]="false"
+                [clear]="true" [fControl]="form.controls['year']" [options]="selectyear">
+            </lb-auto-complete>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <lb-auto-complete  appearance="outline" placeholder="Month" [multiple]="false"
+                [clear]="true" [fControl]="form.controls['month']" [options]="selectMonth">
+            </lb-auto-complete>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <app-date-picker placeholderText="Week" [fControl]="form.controls['week']">
+            </app-date-picker>      
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <input class="form-control" type="text" id="target" required="" formControlName="budget"
+                placeholder="Target">
+            <vmessage field="budget" [control]="form.controls['budget']"></vmessage>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary float-end mt-2">{{(saleTargetId)?"Update":"Save"}}</button>
+        </div>
+    </div>
+</form>

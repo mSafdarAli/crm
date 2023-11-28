@@ -1,0 +1,182 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h4 class="font-22">Receiving Notes</h4>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" class="form-control" formControlName="customer" placeholder="customer">
+                            <vmessage field="customer" [control]="form.controls['customer']"></vmessage>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" class="form-control" formControlName="contactName"
+                                placeholder="Contact Name">
+                            <vmessage field="contactName" [control]="form.controls['contactName']"></vmessage>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" class="form-control" formControlName="contactNo"
+                                placeholder="Contact No">
+                            <vmessage field="contactNo" [control]="form.controls['contactNo']"></vmessage>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" class="form-control" formControlName="orderNo" placeholder="Order No">
+                            <vmessage field="orderNo" [control]="form.controls['orderNo']"></vmessage>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" class="form-control" formControlName="quoteNo" placeholder="Quote No">
+                            <vmessage field="quoteNo" [control]="form.controls['quoteNo']"></vmessage>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="float-end">
+                        <div *ngIf="!isEditing" class="btn btn-primary " (click)="enableSection(true)">
+                            Edit
+                        </div>
+
+                        <div *ngIf="isEditing" class="btn btn-primary mx-1" (click)="update()">
+                            Save
+                        </div>
+                        <div *ngIf="isEditing" class="btn btn-danger " (click)="cancel()">
+                            Cancel
+                        </div>
+
+                        <div class="btn btn-secondary mx-1" (click)="comment_popup(quoteId);">
+                            Notes
+                        </div>
+                        <div class="btn btn-warning" (click)="history_popup(quoteId);">
+                            History
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="responsive-table-plugin">
+                    <div class="table-category-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <form *ngIf="tableForm" [formGroup]="tableForm">
+                                <table id="tech-companies-1" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Supplier</th>
+                                            <th>Product</th>
+                                            <th>Size</th>
+                                            <th>Weight</th>
+                                            <th>Colour</th>
+                                            <th>Qty</th>
+                                            <th>Received</th>
+                                            <th>Total</th>
+                                            <th>Short</th>
+                                            <th>Invoice No</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngIf="!isEditing">
+                                            <ng-container *ngFor="let items of data;">
+                                                <tr>
+                                                    <td>{{items.supplier}}</td>
+                                                    <td>{{items.product}}</td>
+                                                    <td>{{items.size}}</td>
+                                                    <td>{{items.weight}}</td>
+                                                    <td>{{items.colour}}</td>
+                                                    <td>{{items.quantity}}</td>
+                                                    <td>{{items.quantityReceived}}</td>
+                                                    <td>{{items.total}}</td>
+                                                    <td>{{items.short}}</td>
+                                                    <td>{{items.invoiceNo}}</td>
+                                                    <td>{{items.notes}}</td>
+                                                </tr>
+                                            </ng-container>
+                                        </ng-container>
+                                        <ng-container *ngIf="isEditing">
+                                            <ng-container formArrayName="receivings"
+                                                *ngFor="let capability of tableForm.controls['receivings'].controls ; let i=index">
+                                                <tr [formGroupName]="i">
+                                                    <td><input class="editableWidth form-control" readonly disabled
+                                                            formControlName="supplier" type="text" /></td>
+                                                    <td><input class="editableWidth form-control" readonly disabled
+                                                            formControlName="product" type="text" /></td>
+                                                    <td><input class="editableWidth form-control" readonly disabled
+                                                            formControlName="size" type="text" /></td>
+                                                    <td><input class="editableWidth form-control" readonly disabled
+                                                            formControlName="weight" type="text" /></td>
+                                                    <td><input class="editableWidth form-control" readonly disabled
+                                                            formControlName="colour" type="text" /></td>
+                                                    <td><input class="editableWidth form-control" readonly disabled
+                                                            formControlName="quantity" type="number" /></td>
+                                                    <td>
+                                                        <input class="editableWidth form-control"
+                                                            formControlName="quantityReceived" required type="number" />
+
+                                                    </td>
+                                                    <td><input class="editableWidth form-control" readonly disabled
+                                                            formControlName="total" type="number" /></td>
+                                                    <td><input class="editableWidth form-control" readonly disabled
+                                                            formControlName="short" type="number" /></td>
+                                                    <td>
+                                                        <input class="editableWidth form-control"
+                                                            formControlName="invoiceNo" type="text" required />
+                                                    </td>
+                                                    <td>
+                                                        <input class="editableWidth form-control"
+                                                            formControlName="notes" type="text" />
+
+                                                    </td>
+                                                </tr>
+                                            </ng-container>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        Total : {{qty}}
+                    </div>
+                    <div class="col-md-2">
+                        Total Short : {{shorts}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

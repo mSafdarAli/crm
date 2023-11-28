@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-md-4 order-1 col-9 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">New Comment</h5>
+    </div>
+    
+    <div class="col-md-6 order-md-2 order-last col-12 text-md-center text-start align-items-center">
+        <h5>
+            <span class="me-1" *ngIf="taskNo">{{"Task No :" + taskNo }}</span>
+            <span class="me-1" *ngIf="orderNo">{{"Order No :" + orderNo }}</span>
+            <span class="me-1" *ngIf="quoteNo">{{"Quote No :" + quoteNo }}</span>
+        </h5>
+        <!-- <h5 *ngIf="['ActionList' , 'Task'].indexOf(commentTypee)<0">{{orderNo?"Order No :" + orderNo:"Quote No :" + quoteNo }}</h5>
+        <h5 *ngIf="(quoteNo || orderNo) && commentTypee=='ActionList'">{{"Order No :" + orderNo + " " + "Quote No :" + quoteNo}}</h5> -->
+    </div>
+    <div class="col-md-2 order-3 col-3 float-end align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+            class="mdi mdi-close"></i></button>
+        </div>
+    </div>
+    <hr class="my-1">
+    <form action="" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" rows="10" formControlName="commentText"
+                        placeholder="Notes / Comments"></textarea>
+                        <vmessage field="commentText" [control]="form.controls['commentText']"></vmessage>
+                    </div>
+                </div>
+                <div class="text-start text-sm-end galaxyfold" id="galaxyfold">
+                    <button type="button" mat-ripple class="btn btn-secondary d-sm-inline-block d-block m-1"
+                    (click)="attachmentPopUp(quoteId)">View Attachment</button>
+                    <button (click)="uploadFile.click()" type="button"
+                    class="btn btn-warning d-sm-inline-block d-block m-1">
+                    Add Attachment
+                </button>
+                <input #uploadFile type="file" hidden (change)="selectTemplate($event)">
+                <button type="submit" mat-ripple
+                class="btn btn-primary m-1">Save</button>
+                <button type="button" mat-ripple class="btn btn-danger m-1"
+                (click)="close()">Cancel</button>
+            </div>
+        </div>
+        
+    </div>
+</form>
+<div class="row justify-content-center">
+    <div class="col-12">
+        <div class="card">
+            <div class="">
+                <div class="responsive-table-plugin">
+                    <div class="table-category-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Comment</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data">
+                                        <th>{{item.repName}}</th>
+                                        <td>{{item.commentText}}</td>
+                                        <td>{{moment(item.dateCreated).format('DD-MM-YYYY')}}</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

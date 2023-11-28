@@ -1,0 +1,262 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{(actionID)?'Edit' : 'New'}}</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="">
+                <lb-auto-complete appearance="outline" placeholder="Action List Type" [multiple]="false" [clear]="true"
+                    [fControl]="form.controls['actionListTypeId']" [options]="selectType">
+                </lb-auto-complete>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" id="code" type="text" formControlName="code" placeholder="Code">
+                <vmessage field="code" [control]="form.controls['code']"></vmessage>
+            </div>
+
+            <div class="mb-3">
+                <div class="input-group input-group-merge">
+                    <input type="text" id="Description" class="form-control" formControlName="description"
+                        placeholder="Description">
+                    <vmessage field="description" [control]="form.controls['description']"></vmessage>
+                </div>
+            </div>
+            <div class="">
+                <lb-auto-complete appearance="outline" placeholder="Category" [multiple]="false" [clear]="true"
+                    [fControl]="form.controls['categoryId']" [options]="selectcategory">
+                </lb-auto-complete>
+            </div>
+
+            <div class="mb-3">
+                <div class="input-group input-group-merge">
+                    <input type="text" id="Status" class="form-control" formControlName="status" placeholder="Status">
+                    <vmessage field="status" [control]="form.controls['status']"></vmessage>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="attachDocs">
+                        <label class="form-check-label">
+                            Attach Documents
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="isAttachmentMandatory">
+                        <label class="form-check-label">
+                            Attachments Mandatory
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3 m-0" *ngIf="actionID">
+                <div class="col-md-12 ps-0">
+                    <p class="font-14 fw-bold ps-0">Selected Templates</p>
+                </div>
+                <div class="row p-1 fileMargin" *ngFor="let file of selectedTemplates">
+                    <div class="bg-light rounded w-100 d-flex align-items-center">
+                        <div class="col-md-8 col-lg-8 col-8 mt-2">
+                            <div class="d-flex align-items-baseline">
+                                <i class="fe-file pe-1"></i><p class="text-break">{{file.fileName}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-4 my-1">
+                            <div class="float-end">
+                                <div  (click)="viewTemplate(file.blobReference)" class="btn btn-warning btn-xs ms-lg-1 ms-md-1 ms-0"><i class=" fe-eye text-white font-10"></i>
+                                </div>
+                                <div (click)="removeTemplate(file.id)" class="btn btn-danger btn-xs ms-1 ms-lg-2 ms-md-2 mt-0 mt-lg-0 mt-md-0 "><i
+                                    class=" fe-trash-2 text-white font-10"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <mat-radio-group aria-label="Select an option" (change)="radioChange($event)">
+                    <mat-radio-button value="userList" [checked]="form.value.userList">User List</mat-radio-button>
+                    <mat-radio-button value="dateField" class="ms-2 ms-lg-2 ms-md-2" [checked]="form.value.dateField">Date Field</mat-radio-button>
+                    <mat-radio-button value="signBox"  class="ms-0 ms-lg-2 ms-md-2" [checked]="form.value.signBox">Sign Box</mat-radio-button>
+                    <mat-radio-button value="extraField" class="ms-1 ms-lg-2 ms-md-0 mt-lg-0 mt-md-2 mt-2" [checked]="form.value.extraField">Extra Field
+                    </mat-radio-button>
+                    <mat-radio-button value="none" class="ms-2 ms-lg-2 ms-md-2 mt-lg-0 mt-md-2 mt-2"
+                        [checked]="(form.value.userList==false &&form.value.dateField==false && form.value.signBox==false && form.value.extraField==false && actionID)">
+                        None</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div class="mb-3" *ngIf="form.value.extraField">
+                        <div class="form-group">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="5"
+                                formControlName="extraFieldDescription"
+                                placeholder="Extra Field Description"></textarea>
+                            <vmessage field="extraFieldDescription" [control]="form.controls['extraFieldDescription']">
+                            </vmessage>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <div class="form-check mb-2 mb-lg-1 mb-md-1">
+                        <input class="form-check-input" type="checkbox" formControlName="extraDescription">
+                        <label class="form-check-label">
+                            Notes Field
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="">
+                <lb-auto-complete appearance="outline" placeholder="Sort Order" [multiple]="false" [clear]="true"
+                    [fControl]="form.controls['sortorder']" [options]="selectsortorder">
+                </lb-auto-complete>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="sendEmail">
+                        <label class="form-check-label">
+                            Send Email
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="sendToCustomer">
+                        <label class="form-check-label">
+                            Send to Customer
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="sendToSupplier">
+                        <label class="form-check-label">
+                            Send to Supplier
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="sendToRep">
+                        <label class="form-check-label">
+                            Send to Rep
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" formControlName="sendToUser">
+                        <label class="form-check-label">
+                            Send To Action User
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" formControlName="attachOrder">
+                        <label class="form-check-label">
+                            Attach Order
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check mt-3">
+                        <input class="form-check-input" type="checkbox" formControlName="sendAttachments" form>
+                        <label class="form-check-label">
+                            Send Attachments
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <lb-auto-complete appearance="outline" placeholder="Mail Template" [multiple]="false" [clear]="true"
+                    [fControl]="form.controls['notificationTemplateId']" [options]="selectmailtemplate">
+                </lb-auto-complete>
+            </div>
+            <div class="">
+                <lb-auto-complete appearance="outline" placeholder="This Action Must" [multiple]="false" [clear]="true"
+                    [fControl]="form.controls['actionId']" [options]="selectMustaction">
+                </lb-auto-complete>
+            </div>
+            <div class="">
+                <lb-auto-complete appearance="outline" placeholder="Select Role" [multiple]="false" [clear]="true"
+                    [fControl]="form.controls['roleId']" [options]="selectselectrole">
+                </lb-auto-complete>
+            </div>
+            <div class="row" *ngIf="actionID">
+                <div class="">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" formControlName="isDependent">
+                        <label class="form-check-label">
+                            Dependent on Other Actions
+                        </label>
+                    </div>
+                    <div *ngIf="form.value.isDependent">
+                        <lb-auto-complete appearance="outline" placeholder="Select Action" [multiple]="true"
+                            [clear]="true" [fControl]="form.controls['dependency']" [options]="selectDependancy">
+                        </lb-auto-complete>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="lineItemAction">
+                        <label class="form-check-label">
+                            Line Item Action
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="active" form>
+                        <label class="form-check-label">
+                            Active
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3" *ngIf="actionID">
+                <ng-container *ngIf="templates.length>0">
+                    <div class="row align-items-baseline ms-2" *ngFor="let file of templates">
+                        <div class="col-10 bg-light rounded p-1">
+                            <span class="ms-1">{{file.name}}</span>
+                        </div>
+                        <div class="col-2 text-right rounded">
+                            <button (click)="removeFile(file)" class="btn btn-xs bg-danger rounded p-1 ms-1" type="button"><i
+                                    class="mdi mdi-close text-white font-12 mx-1"></i></button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>        
+        <div class="col-12">
+            <button class="btn btn-primary float-end mt-4">
+                {{(actionID)?"Update":"Save"}}
+            </button>
+            <button *ngIf="actionID" (click)="uploadFile.click()" type="button" class="btn btn-primary float-end mt-4 me-1">
+                Select Template
+            </button>
+            <input #uploadFile type="file" hidden (change)="uploadTemplate($event)">
+        </div>
+        
+    </div>
+</form>

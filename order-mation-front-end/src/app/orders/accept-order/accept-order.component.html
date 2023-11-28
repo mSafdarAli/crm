@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="col-md-8 align-items-center">
+		<h5 mat-dialog-title class="mt-0 mb-1">Purchase Orders</h5>
+	</div>
+	<div class="col-md-4 text-right align-items-top">
+		<button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+				class="mdi mdi-close"></i></button>
+	</div>
+</div>
+<hr class="my-1">
+<div class="row">
+	<div class="col-md-12">
+		<div class="card-body">
+			<div *ngFor="let order of orders" class="d-inline-block">
+				<div class="">
+					<a [href]="order" target="_blank"><img src="/assets/images/pdf1.png" alt="PDF" width="200px" ></a>
+					<p class="text-center">{{getFileName(order)}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-loading></app-loading>

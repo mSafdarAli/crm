@@ -1,0 +1,70 @@
+<div>
+    <img src="/assets/images/background.png" alt="Desktop-image" class="w-100 h-100vh position-absolute d-none d-lg-block d-md-block">
+</div>
+<div>
+    <img src="/assets/images/background.png" alt="Tab-image" class="w-100 h-100vh position-absolute d-none d-lg-none d-md-block tab-image">
+</div>
+<div>
+    <img src="/assets/images/Mobile-background.jpg" alt="mobile-image" class="w-100 h-100vh position-absolute  d-lg-none d-md-none mobile-image">
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-3 margin">
+            <div class="card bg-pattern">
+
+                <div class="card-body p-4">
+                    <h1 class="text-center fw-bold mb-4">Login</h1>
+
+                    <form [formGroup]="form" (ngSubmit)="submit()" class="px-2">
+
+                        <div class="mb-3">
+                            <label for="emailaddress" class="form-label">Email address</label>
+                            <input class="form-control" type="email" id="emailaddress" required=""
+                                formControlName="userName" placeholder="Enter your email">
+                            <vmessage field="userName" [control]="form.controls['userName']"></vmessage>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group input-group-merge">
+                                <input [type]="(showPassword)?'text':'password'" id="password" class="form-control" formControlName="password"
+                                    placeholder="Enter your password">
+                                <div (click)="showPassword = !showPassword" class="input-group-text" data-password="false">
+                                    <span *ngIf="showPassword" class="bi bi-eye-slash"></span>
+                                    <span *ngIf="!showPassword" class="bi bi-eye"></span>
+                                </div>
+                            </div>
+                            <vmessage field="password" [control]="form.controls['password']"></vmessage>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="checkbox-signin" checked>
+                                <label class="form-check-label" for="checkbox-signin">Remember me</label>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="text-center d-grid">
+                                    <button class="btn btn-primary" type="submit"> Log In </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <p> <a routerLink="/forgot-password" class=" ms-1">Forgot your password?</a></p>
+                                <!-- <a class="">Don't have an account? <a href="auth-register.html"
+                                            class=" ms-1">Sign Up</a></a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

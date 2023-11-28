@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kevin-service
+spec:
+  selector:
+    name: kevin-frontend
+    app: kevin-front-demo-pod
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4000
+      nodePort: 30004

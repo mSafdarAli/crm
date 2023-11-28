@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant&family=Source+Sans+Pro:wght@600&display=swap');
+html, body {
+	scroll-behavior: smooth;
+}
+$animation-time: 0.2;
+a {
+	transition: all $animation-time ease-in-out;
+}

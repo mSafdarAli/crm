@@ -1,0 +1,13 @@
+.margin{
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+.tab-image{
+    object-fit: cover !important;
+}
+body { width:100% ; height:100%;}
+.mobile-image{
+    object-fit: cover;
+}

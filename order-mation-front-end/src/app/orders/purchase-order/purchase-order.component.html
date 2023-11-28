@@ -1,0 +1,128 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="font-22">Purchase Orders</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" id="customer" readonly class="form-control" formControlName="customer"
+                                placeholder="Customer">
+                            
+                        </div>
+                        <vmessage field="customer" [control]="form.controls['customer']"></vmessage>
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" id="customer" readonly class="form-control" formControlName="contactName"
+                                placeholder="Contact Name">
+                           
+                        </div>
+                        <vmessage field="contactName" [control]="form.controls['contactName']"></vmessage>
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" id="contact_no" readonly class="form-control" formControlName="contactNo"
+                                placeholder="Contact No">
+
+                        </div>
+                        <vmessage field="contactNo" [control]="form.controls['contactNo']"></vmessage>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" id="order_no" readonly class="form-control" formControlName="orderNo"
+                                placeholder="Order No">
+
+                        </div>
+                        <vmessage field="orderNo" [control]="form.controls['orderNo']"></vmessage>
+                    </div>
+                    <div class="mb-3">
+                        <div class="input-group input-group-merge">
+                            <input type="text" id="quote_no" readonly class="form-control" formControlName="quoteNo"
+                                placeholder="Quote No">
+
+                        </div>
+                        <vmessage field="quoteNo" [control]="form.controls['quoteNo']"></vmessage>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="float-end">
+                        <div class="btn btn-primary" (click)="sendPurchase()">
+                            Send
+                        </div>
+                        <div class="btn btn-secondary ms-1" (click)="printPopup()">
+                            Print
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="responsive-table-plugin">
+                    <div class="table-category-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Supplier</th>
+                                        <th>Product</th>
+                                        <th>Size</th>
+                                        <th>Weight</th>
+                                        <th>Colour</th>
+                                        <!-- <th>Position</th>
+                                        <th>Branding</th> -->
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data">
+                                        <th>{{item.supplier}}</th>
+                                        <td>{{item.product}}</td>
+                                        <td>{{item.size}}</td>
+                                        <td>{{item.weight}}</td>
+                                        <td>{{item.colour}}</td>
+                                        <!-- <td>{{item.position}}</td>
+                                        <td>{{item.branding}}</td> -->
+                                        <td>{{item.quantity}}</td>
+                                        <td>{{item.price.toFixed(2)}}</td>
+                                        <td>
+                                            <div class="btn btn-warning btn-xs" (click)="popup(item.id)"><i
+                                                    class=" fe-edit text-white"></i>
+                                            </div>
+                                            <div *ngIf="ps.havePerm('deletepurchaseorder')"
+                                                class="btn btn-danger btn-xs ms-0 ms-lg-0 ms-xl-2 ms-md-0 mt-xl-0 mt-1 mt-lg-1 mx-xl-0 mt-md-1"
+                                                (click)="deletePurchase(item.id)"><i class=" fe-trash-2 text-white"></i>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

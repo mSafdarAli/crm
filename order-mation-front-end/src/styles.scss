@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'assets/scss/base/index.scss';
+// @import "./node_modules/bootstrap/scss/bootstrap.scss";
+@import "assets/scss/config/default/bootstrap.scss";
+@import "assets/scss/config/default/app.scss";
+@import "assets/scss/icons.scss";
+@import '~ngx-toastr/toastr';
+// @import "assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+// @import "assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css";
+// @import "assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css";
+// @import "assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css";
+
+a {
+    text-decoration: none;
+}
+html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.cdk-global-scrollblock {
+    body {
+        overflow-x: unset;
+    }
+}
+mat-form-field {
+    width: 100%;
+}
+hr{
+    border-bottom: 1px solid #000 !important;
+}
+.mat-tab-body-content{
+    overflow: hidden !important;
+}
+.card-body{
+    padding: 12px !important;
+}
+@media screen and (max-width: 480px) {
+    .cdk-overlay-pane{
+        bottom: 100px !important;
+    }
+ }

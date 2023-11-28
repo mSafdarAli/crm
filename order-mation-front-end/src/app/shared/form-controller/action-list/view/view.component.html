@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Action List</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+
+<div class="responsive-table-plugin">
+    <div class="table-category-plugin">
+        <div class="table-responsive" data-pattern="priority-columns">
+            <table id="tech-companies-1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>View</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let items of selectedTemplates">
+                        <td><img src="/assets/images/pdf1.png" alt="PDF" width="50px">{{items.fileName}}</td>
+                        <td><button class="btn btn-success btn-xs mt-1" (click)="print(items.blobReference)">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

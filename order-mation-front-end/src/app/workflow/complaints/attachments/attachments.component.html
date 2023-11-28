@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-6 col-md-8  col-lg-8 align-items-center">
+		<h5 mat-dialog-title class="mt-0 mb-1">Attachments</h5>
+	</div>
+	<div class="col-6 col-md-4 col-lg-4 text-right align-items-top">
+		<button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+				class="mdi mdi-close"></i></button>
+	</div>
+</div>
+<hr class="my-1">
+<div class="responsive-table-plugin">
+    <div class="table-category-plugin">
+        <div class="table-responsive" data-pattern="priority-columns">
+            <table id="tech-companies-1" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Attachments</th>
+                        <th>View</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let items of Data">
+                        <td>{{items.fileName }}</td>
+                        <td><button class="btn btn-success btn-sm" (click)="printAttachment(items.blobReference)">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-6 col-md-8 col-lg-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Assigned To </h5>
+    </div>
+    <div class="col-6 col-md-4  col-lg-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <lb-auto-complete appearance="outline" placeholder="Assigned To" [multiple]="false" [clear]="true"
+                [fControl]="form.controls['assignedToId']" [options]="selectassignedto">
+            </lb-auto-complete>
+        </div>
+        <div class="row ">
+            <div class="col-md-6">
+                <button class="btn btn-primary mt-1 mt-lg-0 w-100" (click)="submit()" >Save</button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-warning  mt-1 mt-lg-0 w-100" (click)="close()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>

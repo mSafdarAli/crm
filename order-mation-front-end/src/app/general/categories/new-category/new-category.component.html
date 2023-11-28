@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{(customerCategoriesID)?'Edit' : 'New'}}</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form  [formGroup]="form" class="my-2" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <input class="form-control" type="text"  formControlName="code" placeholder="Code">
+                <vmessage field="code" [control]="form.controls['code']"></vmessage>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <input class="form-control" type="number"  formControlName="discount" placeholder="Discount">
+                <vmessage field="discount" [control]="form.controls['discount']"></vmessage>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group mb-3">
+                <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="5"
+                    formControlName="description" placeholder="Extra Field Description"></textarea>
+                <vmessage field="description" [control]="form.controls['description']"></vmessage>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" formControlName="active" id="flexCheckDefault">
+                <label class="form-check-label fw-semibold" for="flexCheckDefault">
+                    Active
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary float-end">
+                {{(customerCategoriesID)?"Update":"Save"}}
+            </button>
+        </div>
+    </div>
+</form>

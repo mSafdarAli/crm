@@ -1,0 +1,98 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="font-22">Quotes History</h4>
+            </div>
+            <div class="col-md-12 col-lg-4 col-12">
+                <div>
+                    <form class="search-bar" [formGroup]="search">
+                        <div class="position-relative">
+                            <input type="text" class="form-control form-control-white" formControlName="search"
+                                (keydown.enter)="searchHistory({query : this.search.value.search})" placeholder="Search Quotes History">
+                            <span class="mdi mdi-magnify" (click)="searchHistory({query : this.search.value.search})"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="float-end">
+                    <button class="btn btn-primary ms-2 mt-2 mt-lg-0 mt-md-0" (click)="exportQuoteHistory()">Export To Excel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="responsive-table-plugin">
+                    <div class="table-category-plugin">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table matSort (matSortChange)="sortData($event)" id="tech-companies-1" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th mat-sort-header="quoteNo">Quote No</th>
+                                        <th mat-sort-header="quoteDate">Quote Date</th>
+                                        <th mat-sort-header="customer">Customer</th>
+                                        <th mat-sort-header="jobName">Job Name</th>
+                                        <th mat-sort-header="repName">Rep Name</th>
+                                        <th mat-sort-header="followUp">Follow Up</th>
+                                        <th mat-sort-header="followUpSent">FollowUp Sent</th>
+                                        <th mat-sort-header="quoteSent">Quote Sent</th>
+                                        <th mat-sort-header="contactName">Contact Name</th>
+                                        <th mat-sort-header="contactEmail">Contact Email</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data">
+                                        <td>{{item?.quoteNo}}</td>
+                                        <td>{{(item?.quoteDate)?moment(item?.quoteDate).format('DD-MM-YYYY'):''}}</td>
+                                        <td>{{item?.customer}}</td>
+                                        <td>{{item?.jobName}}</td>
+                                        <td>{{item?.repName}}</td>
+                                        <td>{{item?.followUp}}</td>
+                                        <td>{{(item?.followUpSent)?moment(item?.followUpSent).format('DD-MM-YYYY HH:mm'):''}}</td>
+                                        <td>{{(item?.quoteSent)?moment(item?.quoteSent).format('DD-MM-YYYY HH:mm'):''}}</td>
+                                        <td>{{item?.contactName}}</td>
+                                        <td>{{item?.contactEmail}}</td>
+                                        <td><button class="btn btn-success" mat-button
+                                                [matMenuTriggerFor]="menu">Menu</button>
+                                            <mat-menu #menu="matMenu">
+                                                <button *ngIf="ps.havePerm('lookupquote')" (click)="viewQuote(item.quoteId)" mat-menu-item>View Quote</button>
+                                                <button mat-menu-item (click)="newComment(item.quoteId,item.quoteNo)">Comments</button>
+                                                <button *ngIf="ps.havePerm('repeatquote')" (click)="repeatQuote(item.quoteId)" mat-menu-item>Repeat Quote</button>
+                                                <button *ngIf="ps.havePerm('lookupquote')" mat-menu-item (click)="reOpenQuote(item.quoteId)">Re-open Quote</button>
+                                                <button mat-menu-item [matMenuTriggerFor]="list">Follow Up</button>
+                                            </mat-menu>
+                                            <mat-menu #list="matMenu">
+                                                <button mat-menu-item (click)="changeStatus('hot',item.quoteId)">Hot</button>
+                                                <button mat-menu-item (click)="changeStatus('mild',item.quoteId)">Mild</button>
+                                                <button mat-menu-item (click)="changeStatus('cold',item.quoteId)">Cold</button>
+                                                <button mat-menu-item (click)="changeStatus('followUp',item.quoteId)">Follow Up</button>
+                                            </mat-menu>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end">
+                    <button class="btn btn-danger btn-xs" (click)="getPrevious()"
+                        [class.disabled]="start == 1">Previous</button>
+                    <button class="btn btn-primary btn-xs ms-1" (click)="getNext()"
+                        [class.disabled]="end >= count">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

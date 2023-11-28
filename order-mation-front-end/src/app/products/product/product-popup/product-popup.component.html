@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{(ProductID)?'Edit':'New'}}</h5>
+    </div>
+    <div class="col-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form action="" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+
+            <div class="col-md-12 col-sm-6">
+                <lb-auto-complete appearance="outline" placeholder="Category" [multiple]="false" [clear]="true"
+                    [fControl]="form.controls['productCategory']" [options]="selectcategory">
+                </lb-auto-complete>
+            </div>
+            <div class="mb-3 col-md-12 col-sm-6">
+                <div class="input-group input-group-merge">
+                    <input type="text" id="text" class="form-control" formControlName="code" placeholder="Code">
+                    <vmessage field="code" [control]="form.controls['code']">
+                    </vmessage>
+                </div>
+            </div>
+            <div class="mb-3 col-md-12 col-sm-6">
+                <div class="input-group input-group-merge">
+                    <input type="text" id="description" class="form-control" formControlName="description"
+                        placeholder="Description">
+                    <vmessage field="description" [control]="form.controls['description']">
+                    </vmessage>
+                </div>
+            </div>
+            <div class="mb-3 col-md-12 col-sm-6">
+                <div class="input-group input-group-merge">
+                    <input type="text" id="password" class="form-control" formControlName="accountingCode"
+                        placeholder="Accounting Code">
+                    <vmessage field="accountingCode" [control]="form.controls['accountingCode']">
+                    </vmessage>
+                </div>
+            </div>
+            <div class="col-12">
+                <input class="form-check-input" formControlName="active" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label ms-2" for="flexCheckDefault">
+                    Active
+                </label>
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary float-end">
+                {{(ProductID)?"Update":"Save"}}
+            </button>
+        </div>
+    </div>
+</form>

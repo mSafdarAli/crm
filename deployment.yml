@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kevin-frontend-deploy
+  labels:
+      name: kevin-frontend-deploy
+      app: kevin-front-demo-pod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: kevin-frontend
+      app: kevin-front-demo-pod
+  template:
+    metadata:
+      labels:
+        name: kevin-frontend
+        app: kevin-front-demo-pod
+    spec:
+      containers:
+      - name: kevin-frontend
+        image: kevin
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80

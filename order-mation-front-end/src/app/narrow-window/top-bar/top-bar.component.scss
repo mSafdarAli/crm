@@ -1,0 +1,24 @@
+.navbar-custom{
+	top: 0;
+}
+.top-bar {
+	padding: 20px 1.8rem;
+	position: sticky;
+	top: 0;
+	z-index: 900;
+}
+.btn-sm {
+	height: 40px;
+	width: 40px;
+}
+.form-control {
+	font-size: .9rem;
+	max-height: 40px;
+	max-width: 300px;
+	display: inline-block;
+}
+.image-btn {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+}

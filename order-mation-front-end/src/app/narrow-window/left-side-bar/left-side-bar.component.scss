@@ -1,0 +1,35 @@
+.bg-sidemenu{
+    background: rgb(2,0,36);
+    background: linear-gradient(337deg, rgba(2,0,36,0.7931547619047619) 11%, rgba(141,132,219,0.9416141456582633) 100%, rgba(0,212,255,1) 100%);
+}
+#side-menu li a{
+    color: white;
+}
+span.menu-arrow {
+    transition: rotate ease-in-out 0.2s;
+}
+span.menu-arrow.open {
+    rotate: 90deg;
+}
+.cursor {
+    cursor: pointer;
+}
+
+#side-menu li {
+    display: block;
+    padding: 2px 4px 2px 4px;
+    a {
+        color: rgb(255, 255, 255);
+        display: block;
+        padding: 8px 0px 8px 8px;
+        transition: all .2s;
+        i {
+            padding-right: 1rem;
+        }
+        &.active, &:hover, &:active, &:focus {
+            background-color: white;
+            border-radius: 0px 3rem 3rem 0px;
+            color: #8880CC;
+        }
+    }
+}

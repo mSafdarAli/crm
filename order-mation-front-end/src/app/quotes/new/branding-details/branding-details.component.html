@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-md-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Branding Details</h5>
+    </div>
+    <div class="col-md-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<div class="row mt-2">
+    <div class="col-md-12">
+        <!-- positionNo -->
+        <button class="btn btn-primary float-end" (click)="addBranding()">Add Position</button>
+    </div>
+</div>
+
+<form action="" [formGroup]="brandingform" (ngSubmit)="pushData()">
+    <ng-container formArrayName="brandings" *ngFor="let brand of brandings.controls;  let i=index"
+        [formGroupName]="i">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <h4 class="font-16 mb-3">Position {{i+1}}</h4>
+                    <div class="col-md-3">
+
+                        <lb-auto-complete appearance="outline" placeholder="Supplier" [multiple]="false" [clear]="true"
+                            [fControl]="brandings.controls[i].controls['supplier']" [options]="selectsupplier"
+                            (selectionChange)="getEffect(i)">
+                        </lb-auto-complete>
+
+                    </div>
+                    <div class="col-md-3">
+
+                        <lb-auto-complete appearance="outline" placeholder="No. Of Colours" [multiple]="false"
+                            [clear]="true" [fControl]="brandings.controls[i].controls['noOfColours']"
+                            (selectionChange)="getcost(i)" [options]="selectnoofcolours">
+                        </lb-auto-complete>
+
+                    </div>
+                    <div class="col-md-3">
+
+                        <lb-auto-complete appearance="outline" placeholder="Position" [multiple]="false" [clear]="true"
+                            [fControl]="brandings.controls[i].controls['printPositionId']" [options]="selectposition">
+                        </lb-auto-complete>
+
+                    </div>
+                    <div class="col-md-3">
+
+                        <lb-auto-complete appearance="outline" placeholder="Effect" [multiple]="false" [clear]="true"
+                            [fControl]="brandings.controls[i].controls['printEffectId']" [options]="selecteffect"
+                            (selectionChange)="getcost(i)">
+                        </lb-auto-complete>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <input class="form-control" type="number" [formControl]="brandings.controls[i].controls['costPrice']"
+                                placeholder="Cost Price">
+                            <vmessage field="costPrice" [control]="brandings.controls[i].controls['costPrice']">
+                            </vmessage>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <input class="form-control" type="number" [formControl]="brandings.controls[i].controls['sellingPrice']"
+                                placeholder="Selling Price">
+                            <vmessage field="sellingPrice" [control]="brandings.controls[i].controls['sellingPrice']">
+                            </vmessage>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <input class="form-control" type="number" [formControl]="brandings.controls[i].controls['setupCost']"
+                                placeholder="Setup Cost">
+                            <vmessage field="setupCost" [control]="brandings.controls[i].controls['setupCost']">
+                            </vmessage>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <input class="form-control" type="number" [formControl]="brandings.controls[i].controls['setupSelling']"
+                                placeholder="Setup Selling">
+                            <vmessage field="setupSelling" [control]="brandings.controls[i].controls['setupSelling']">
+                            </vmessage>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="5"
+                                    [formControl]="brandings.controls[i].controls['notes']" placeholder="Notes"></textarea>
+                                <vmessage field="notes" [control]="brandings.controls[i].controls['notes']"></vmessage>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn btn-danger mb-3" (click)="removeBranding(i)">Remove Position</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <div class="row">
+        <div class="col-md-12 ">
+            <button class="btn btn-primary float-end" (click)="pushData()">Save</button>
+        </div>
+    </div>
+</form>

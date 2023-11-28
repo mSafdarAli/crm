@@ -1,0 +1,109 @@
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-7 col-xl-8 col-md-6">
+                <h4 class="font-22">Imports</h4>
+            </div>           
+            <div class="col-lg-3 col-xl-2 col-md-4">
+                <div class="upload-btn-wrapper w-100">
+                    <button class="btn btn-primary w-100 float-end" (click)="getTemplate()">Get Template</button>
+                </div>
+            </div>
+            <div class="col-lg-2 col-xl-2 col-md-2">
+                <button class="btn btn-primary w-100  float-end" (click)="newDialog()">Export</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='1'" (click)="type='1'; ">
+            <div class="upload-btn-wrapper">
+                <div class="card-body text-center">
+                    <form [formGroup]="form" class="my-2" >
+                        <img src="/assets/images/Excel.jpg" alt="excel">
+                        <input type="file" formControlName="filename" (change)="uploadFile($event)"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='2'" (click)="type='2'; getProductBySupplier('Abelanani')">
+            <div class="card-body text-center">
+                <img src="/assets/images/AbelananiLogo.jpg" alt="AbelananiLogo" width="260" class="mt-4 import-image1">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='3'" (click)="type='3'; getProductBySupplier('Amrod')">
+            <div class="card-body text-center">
+                <img src="/assets/images/Amrod.png" alt="Amrod" width="230" class="mt-2 import-image1">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='4'" (click)="type='4'; getProductBySupplier('Barron')">
+            <div class="card-body text-center">
+                <img src="/assets/images/barron-logo-250.png" alt="barron-logo" width="180" class="import-image1">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='5'" (click)="type='5'; getProductBySupplier('Captivity')">
+            <div class="card-body text-center">
+                <img src="/assets/images/CaptivityLogo.jpg" alt="CaptivityLogo" width="250" class="mt-3 import-image1">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='6'" (click)="type='6'; getProductBySupplier('Colmart')">
+            <div class="card-body text-center">
+                <img src="/assets/images/colmart_logo.jpg" alt="colmart_logo" width="260" class="mt-4 import-image1">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='7'"
+            (click)="type='7'; getProductBySupplier('Headwear 24')">
+            <div class="card-body text-center">
+                <img src="/assets/images/headwear24-logo.png" alt="headwear24" width="260" class="mt-4 import-image1">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='8'" (click)="type='8'; getProductBySupplier('KMQ')">
+            <div class="card-body text-center">
+                <img src="/assets/images/KMQLogo.jpg" alt="KMQLogo" width="260" class="mt-3 import-image1">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='9'" (click)="type='9'; getProductBySupplier('Lumoss')">
+            <div class="card-body text-center">
+                <img src="/assets/images/LumossLogo.png" alt="LumossLogo" width="260" class="mt-3 import-image1">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='10'"
+            (click)="type='10'; getProductBySupplier('Mass Supply')">
+            <div class="card-body text-center ">
+                <img src="/assets/images/MassSupply.png" alt="MassSupply" width="260" class="mt-4 import-image1">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+        <div class="card card-style" [class.active]="type=='11'" (click)="type='11'; getProductBySupplier('tradeonly')">
+            <div class="card-body text-center m-auto">
+                <img src="/assets/images/TOGLogo.jpg" alt="TOGLogo" width="260" class="mt-3 import-image1">
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading></app-loading>

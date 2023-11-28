@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-8 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">Export</h5>
+    </div>
+    <div class="col-md-4 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="form" class="my-2" (ngSubmit)="submit()">
+            <div class="">
+                <lb-auto-complete appearance="outline" placeholder="Select Supplier" [multiple]="false" [clear]="true"
+                    [fControl]="form.controls['supplier']" [options]="selectSupplier">
+                </lb-auto-complete>
+            </div>
+            <button class="btn btn-primary  float-end">Export</button>
+        </form>
+    </div>
+</div>

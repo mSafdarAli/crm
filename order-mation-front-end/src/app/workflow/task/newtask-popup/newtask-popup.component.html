@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-8 col-6 align-items-center">
+        <h5 mat-dialog-title class="mt-0 mb-1">{{title}} Task</h5>
+    </div>
+    <div class="col-md-4 col-6 text-right align-items-top">
+        <button mat-ripple (click)="close()" class="btn btn-danger btn-xs float-end" type="button"><i
+                class="mdi mdi-close"></i></button>
+    </div>
+</div>
+<hr class="my-1">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div >
+                        <div >
+                            <div class="">
+                                <lb-auto-complete appearance="outline" placeholder="Task Type" [multiple]="false"
+                                    [clear]="true" [fControl]="form.controls['taskTypeId']" [options]="selecttasktype">
+                                </lb-auto-complete>
+                            </div>
+
+                            <div class="mb-3">
+                                <input class="form-control" type="text"  formControlName="name"
+                                    placeholder="Task Name">
+                                <vmessage field="name" [control]="form.controls['name']">
+                                </vmessage>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" type="text" rows="8"
+                                        formControlName="description" placeholder="Description"></textarea>
+                                    <vmessage field="description" [control]="form.controls['description']"></vmessage>
+                                </div>
+                            </div>                           
+                           
+                            <div class="">
+                                <lb-auto-complete appearance="outline" placeholder="Assigned To" [multiple]="false"
+                                    [clear]="true" [fControl]="form.controls['assignedToId']"
+                                    [options]="selectassignedto">
+                                </lb-auto-complete>
+                            </div>
+
+                            <div class="mb-3">
+                                <app-date-picker placeholderText="Due Date" [fControl]="form.controls['dueDate']">
+                                </app-date-picker>
+                            </div>
+                            <button  [class.d-none]="repeatButton" class="btn btn-primary float-end">
+                                {{(ViewTaskID)?"Update":"Save"}}
+                            </button>
+                            <button  *ngIf="repeatButton" class="btn btn-primary float-end">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<app-loading></app-loading>
