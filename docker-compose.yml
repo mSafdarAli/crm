@@ -11,6 +11,8 @@ services:
       - 80:80    
   order-mation-front-end:
     container_name: order-mation-front-end
-    image: order-mation-front-end
+    image: kevin
     build: 
       context: ./order-mation-front-end
+      args:
+        BUILDKIT_INLINE_CACHE: 0  
